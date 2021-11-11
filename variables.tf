@@ -11,9 +11,9 @@ variable "chart_name" {
 }
 
 variable "chart_repository" {
-  description = "Helm repository for the chart"
+  description = "Helm repository for the chart."
   type        = string
-  default     = "https://actions-runner-controller.github.io/actions-runner-controller."
+  default     = "https://actions-runner-controller.github.io/actions-runner-controller"
 }
 
 variable "chart_version" {
