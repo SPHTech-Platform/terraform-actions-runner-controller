@@ -1,0 +1,190 @@
+# Default values for actions-runner-controller.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+labels: ${labels}
+
+replicaCount: ${replicas}
+
+syncPeriod: ${sync_period}
+
+enableLeaderElection: true
+# Specifies the controller id for leader election.
+# Must be unique if more than one controller installed onto the same namespace.
+leaderElectionId: ${leader_election_id}
+
+# The controller tries its best not to repeat the duplicate GitHub API call
+# within this duration.
+# Defaults to syncPeriod - 10s.
+githubAPICacheDuration: ${api_cache_duration}
+
+# The URL of your GitHub Enterprise server, if you're using one.
+githubEnterpriseServerURL: ${github_enterprise_url}
+
+# Set the log level of the controller container.
+logLevel: ${log_level}
+
+# Only 1 authentication method can be deployed at a time
+# Uncomment the configuration you are applying and fill in the details
+%{ if auth_secret_created }
+authSecret:
+  create: true
+  name: ${auth_secret_name}
+  annotations: ${auth_secret_annotations}
+  ### GitHub Apps Configuration
+  ## NOTE: IDs MUST be strings, use quotes
+%{ if auth_method == "github-app" ~}
+  github_app_id: ${github_app_id}
+  github_app_installation_id: ${github_app_installation_id}
+  github_app_private_key: |
+${github_app_private_key}
+%{ endif ~}
+  ### GitHub PAT Configuration
+%{ if auth_method == "pat" ~}
+  github_token: ${github_token}
+%{ endif ~}
+%{ endif ~}
+
+dockerRegistryMirror: ${docker_registry_mirror}
+image:
+  repository: ${controller_repository}
+  tag: ${controller_image_tag}
+  actionsRunnerRepositoryAndTag: "${runner_repository}:${runner_image_tag}"
+  dindSidecarRepositoryAndTag: "${dind_sidecar_repository}:${dind_sidecar_image_tag}"
+  pullPolicy: ${image_pull_policy}
+
+imagePullSecrets: ${image_pull_secrets}
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: ${service_account_created}
+  # Annotations to add to the service account
+  annotations: ${service_account_annotations}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ${service_account_name}
+
+podAnnotations: ${pod_annotations}
+
+podLabels: ${pod_labels}
+
+podSecurityContext: ${pod_security_context}
+  # fsGroup: 2000
+
+securityContext: ${security_context}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+# Webhook service resource
+service:
+  type: ${service_type}
+  port: ${service_port}
+  annotations: ${service_annotation}
+
+# Metrics service resource
+metrics:
+  serviceMonitor: ${metrics_service_monitor_enabled}
+  serviceAnnotations: ${metrics_service_annotation}
+  serviceMonitorLabels: ${metrics_service_monitor_labels}
+  port: ${metrics_service_port}
+  proxy:
+    enabled: ${metrics_proxy_enabled}
+    image:
+      repository: ${metrics_proxy_image_repository}
+      tag: ${metrics_proxy_image_tag}
+
+resources: ${resources}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: ${node_selector}
+
+tolerations: ${tolerations}
+
+affinity: ${affinity}
+
+# Leverage a PriorityClass to ensure your pods survive resource shortages
+# ref: https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/
+# PriorityClass: system-cluster-critical
+priorityClassName: ${priority_class_name}
+
+env: ${env}
+  # http_proxy: "proxy.com:8080"
+  # https_proxy: "proxy.com:8080"
+  # no_proxy: ""
+
+scope:
+  # If true, the controller will only watch custom resources in a single namespace
+  singleNamespace: ${scope_single_namespace_enabled}
+  # If `scope.singleNamespace=true`, the controller will only watch custom resources in this namespace
+  # The default value is "", which means the namespace of the controller
+  watchNamespace: ${scope_watch_namespace}
+
+githubWebhookServer:
+  enabled: ${webhook_server_enabled}
+  replicaCount: ${webhook_server_replicas}
+  syncPeriod: ${webhook_server_sync_period}
+  logLevel: ${webhook_server_log_level}
+  secret:
+    create: ${webhook_server_secret_created}
+    name: ${webhook_server_secret_name}
+    ### GitHub Webhook Configuration
+    github_webhook_secret_token: ${webhook_server_secret_token}
+  imagePullSecrets: ${webhook_server_image_pull_secrets}
+  nameOverride: ""
+  fullnameOverride: ""
+  serviceAccount:
+    # Specifies whether a service account should be created
+    create: ${webhook_server_service_account_created}
+    # Annotations to add to the service account
+    annotations: ${webhook_server_service_account_annotations}
+    # The name of the service account to use.
+    # If not set and create is true, a name is generated using the fullname template
+    name: ${webhook_server_service_account_name}
+  podAnnotations: ${webhook_server_pod_annotations}
+  podLabels: ${webhook_server_pod_labels}
+  podSecurityContext: ${webhook_server_pod_security_context}
+  # fsGroup: 2000
+  securityContext: ${webhook_server_security_context}
+  resources: ${webhook_server_resources}
+  nodeSelector: ${webhook_server_node_selector}
+  tolerations: ${webhook_server_toleration}
+  affinity: ${webhook_server_affinity}
+  priorityClassName: ${webhook_server_priority_class_name}
+  service:
+    type: ${webhook_server_service_type}
+    annotations: ${webhook_server_service_annotations}
+    ports:
+      - port: ${webhook_server_service_port}
+        targetPort: http
+        protocol: TCP
+        name: http
+%{ if webhook_server_service_node_port != "" ~}
+        nodePort: ${webhook_server_service_node_port}
+%{ endif ~}
+  ingress:
+    enabled: ${webhook_server_ingress_enabled}
+    annotations: ${webhook_server_ingress_annotations}
+      # kubernetes.io/ingress.class: nginx
+      # kubernetes.io/tls-acme: "true"
+    hosts:
+      - host: ${webhook_server_ingress_hosts}
+        paths: ${webhook_server_ingress_hosts_paths}
+    tls: ${webhook_server_ingress_tls}
+    #  - secretName: chart-example-tls
+    #    hosts:
+    #      - chart-example.local
