@@ -28,6 +28,12 @@ variable "chart_namespace" {
   default     = "default"
 }
 
+variable "chart_namespace_created" {
+  description = "Create the namespace if it does not yet exist."
+  type        = bool
+  default     = false
+}
+
 variable "chart_timeout" {
   description = "Timeout to wait for the Chart to be deployed."
   type        = number

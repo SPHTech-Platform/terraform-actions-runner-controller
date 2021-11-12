@@ -2,19 +2,18 @@
 
 Deploys [actions-runner-controller](https://github.com/actions-runner-controller/actions-runner-controller).
 
-
 ## Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.15 |
-| <a name="requirement_helm"></a> [helm](#requirement\_helm) | ~> 2.3 |
+| <a name="requirement_helm"></a> [helm](#requirement\_helm) | ~> 2.4 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_helm"></a> [helm](#provider\_helm) | 2.4.1 |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | ~> 2.4 |
 
 ## Modules
 
@@ -38,7 +37,8 @@ No modules.
 | <a name="input_chart_labels"></a> [chart\_labels](#input\_chart\_labels) | Set labels to apply to all resources in the chart. | `map(any)` | `{}` | no |
 | <a name="input_chart_name"></a> [chart\_name](#input\_chart\_name) | Helm chart name to provision. | `string` | `"actions-runner-controller"` | no |
 | <a name="input_chart_namespace"></a> [chart\_namespace](#input\_chart\_namespace) | Namespace to install the chart into. | `string` | `"default"` | no |
-| <a name="input_chart_repository"></a> [chart\_repository](#input\_chart\_repository) | Helm repository for the chart | `string` | `"https://actions-runner-controller.github.io/actions-runner-controller."` | no |
+| <a name="input_chart_namespace_created"></a> [chart\_namespace\_created](#input\_chart\_namespace\_created) | Create the namespace if it does not yet exist. | `bool` | `false` | no |
+| <a name="input_chart_repository"></a> [chart\_repository](#input\_chart\_repository) | Helm repository for the chart. | `string` | `"https://actions-runner-controller.github.io/actions-runner-controller"` | no |
 | <a name="input_chart_timeout"></a> [chart\_timeout](#input\_chart\_timeout) | Timeout to wait for the Chart to be deployed. | `number` | `300` | no |
 | <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Version of Chart to install. Set to empty to install the latest version. | `string` | `"0.14.0"` | no |
 | <a name="input_controller_affinity"></a> [controller\_affinity](#input\_controller\_affinity) | Set the controller pod affinity rules. | `map(any)` | `{}` | no |
