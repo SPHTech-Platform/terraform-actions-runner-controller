@@ -19,13 +19,19 @@ variable "chart_repository" {
 variable "chart_version" {
   description = "Version of Chart to install. Set to empty to install the latest version."
   type        = string
-  default     = "0.14.0"
+  default     = "0.15.0"
 }
 
 variable "chart_namespace" {
   description = "Namespace to install the chart into."
   type        = string
   default     = "default"
+}
+
+variable "chart_namespace_create" {
+  description = "Create the namespace if it does not yet exist."
+  type        = bool
+  default     = false
 }
 
 variable "chart_timeout" {
@@ -64,25 +70,25 @@ variable "sync_period" {
 variable "leader_election_id" {
   description = "Set the election ID for the controller group."
   type        = string
-  default     = null
+  default     = ""
 }
 
 variable "api_cache_duration" {
   description = "Set the cache period for API calls. Defaults to syncPeriod - 10s."
   type        = string
-  default     = null
+  default     = ""
 }
 
 variable "github_enterprise_url" {
   description = "The URL of your GitHub Enterprise server, if you're using one."
   type        = string
-  default     = null
+  default     = ""
 }
 
 variable "log_level" {
   description = "Set the log level of the controller container."
   type        = string
-  default     = null
+  default     = ""
 }
 
 variable "auth_secret_created" {
@@ -117,25 +123,25 @@ variable "auth_secret_annotations" {
 variable "github_app_id" {
   description = "GitHub App ID. This can't be set at the same time as github_token"
   type        = string
-  default     = null
+  default     = ""
 }
 
 variable "github_app_installation_id" {
   description = "GitHub App Installation ID. This can't be set at the same time as github_token"
   type        = string
-  default     = null
+  default     = ""
 }
 
 variable "github_app_private_key" {
   description = "The multiline string of your GitHub App's private key. This can't be set at the same time as github_token"
   type        = string
-  default     = null
+  default     = ""
 }
 
 variable "github_token" {
   description = "Your chosen GitHub PAT token. This can't be set at the same time as github_app_*"
   type        = string
-  default     = null
+  default     = ""
 }
 
 variable "docker_registry_mirror" {
@@ -366,7 +372,7 @@ variable "webhook_server_sync_period" {
 variable "webhook_server_log_level" {
   description = "Set the log level of the githubWebhookServer container."
   type        = string
-  default     = null
+  default     = ""
 }
 
 variable "webhook_server_secret_created" {
@@ -504,7 +510,7 @@ variable "webhook_server_ingress_annotations" {
 variable "webhook_server_ingress_hosts" {
   description = "Set hosts for the githubWebhookServer ingress kind."
   type        = string
-  default     = null
+  default     = ""
 }
 
 variable "webhook_server_ingress_hosts_paths" {

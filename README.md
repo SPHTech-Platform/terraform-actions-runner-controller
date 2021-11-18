@@ -2,19 +2,18 @@
 
 Deploys [actions-runner-controller](https://github.com/actions-runner-controller/actions-runner-controller).
 
-
 ## Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 0.15 |
-| <a name="requirement_helm"></a> [helm](#requirement\_helm) | ~> 2.3 |
+| <a name="requirement_helm"></a> [helm](#requirement\_helm) | ~> 2.4 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_helm"></a> [helm](#provider\_helm) | 2.4.1 |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | ~> 2.4 |
 
 ## Modules
 
@@ -30,7 +29,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_api_cache_duration"></a> [api\_cache\_duration](#input\_api\_cache\_duration) | Set the cache period for API calls. Defaults to syncPeriod - 10s. | `string` | `null` | no |
+| <a name="input_api_cache_duration"></a> [api\_cache\_duration](#input\_api\_cache\_duration) | Set the cache period for API calls. Defaults to syncPeriod - 10s. | `string` | `""` | no |
 | <a name="input_auth_method"></a> [auth\_method](#input\_auth\_method) | GitHub authentication method to be deployed. | `string` | `"pat"` | no |
 | <a name="input_auth_secret_annotations"></a> [auth\_secret\_annotations](#input\_auth\_secret\_annotations) | Set the annotations of the auth secret. | `map(any)` | `{}` | no |
 | <a name="input_auth_secret_created"></a> [auth\_secret\_created](#input\_auth\_secret\_created) | Create Kubernetes secrets to authenticate with GitHub API. | `bool` | `false` | no |
@@ -38,9 +37,10 @@ No modules.
 | <a name="input_chart_labels"></a> [chart\_labels](#input\_chart\_labels) | Set labels to apply to all resources in the chart. | `map(any)` | `{}` | no |
 | <a name="input_chart_name"></a> [chart\_name](#input\_chart\_name) | Helm chart name to provision. | `string` | `"actions-runner-controller"` | no |
 | <a name="input_chart_namespace"></a> [chart\_namespace](#input\_chart\_namespace) | Namespace to install the chart into. | `string` | `"default"` | no |
-| <a name="input_chart_repository"></a> [chart\_repository](#input\_chart\_repository) | Helm repository for the chart | `string` | `"https://actions-runner-controller.github.io/actions-runner-controller."` | no |
+| <a name="input_chart_namespace_create"></a> [chart\_namespace\_create](#input\_chart\_namespace\_created) | Create the namespace if it does not yet exist. | `bool` | `false` | no |
+| <a name="input_chart_repository"></a> [chart\_repository](#input\_chart\_repository) | Helm repository for the chart. | `string` | `"https://actions-runner-controller.github.io/actions-runner-controller"` | no |
 | <a name="input_chart_timeout"></a> [chart\_timeout](#input\_chart\_timeout) | Timeout to wait for the Chart to be deployed. | `number` | `300` | no |
-| <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Version of Chart to install. Set to empty to install the latest version. | `string` | `"0.14.0"` | no |
+| <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Version of Chart to install. Set to empty to install the latest version. | `string` | `"0.15.0"` | no |
 | <a name="input_controller_affinity"></a> [controller\_affinity](#input\_controller\_affinity) | Set the controller pod affinity rules. | `map(any)` | `{}` | no |
 | <a name="input_controller_env"></a> [controller\_env](#input\_controller\_env) | Set environment variables for the controller container. | `map(any)` | `{}` | no |
 | <a name="input_controller_image_tag"></a> [controller\_image\_tag](#input\_controller\_image\_tag) | The tag of the controller container. | `string` | `"v0.20.3"` | no |
@@ -59,15 +59,15 @@ No modules.
 | <a name="input_dind_sidecar_image_tag"></a> [dind\_sidecar\_image\_tag](#input\_dind\_sidecar\_image\_tag) | The tag of the dind sidecar container. | `string` | `"dind"` | no |
 | <a name="input_dind_sidecar_repository"></a> [dind\_sidecar\_repository](#input\_dind\_sidecar\_repository) | The repository/image of the dind sidecar container. | `string` | `"docker"` | no |
 | <a name="input_docker_registry_mirror"></a> [docker\_registry\_mirror](#input\_docker\_registry\_mirror) | The default Docker Registry Mirror used by runners. | `string` | `""` | no |
-| <a name="input_github_app_id"></a> [github\_app\_id](#input\_github\_app\_id) | GitHub App ID. This can't be set at the same time as github\_token | `string` | `null` | no |
-| <a name="input_github_app_installation_id"></a> [github\_app\_installation\_id](#input\_github\_app\_installation\_id) | GitHub App Installation ID. This can't be set at the same time as github\_token | `string` | `null` | no |
-| <a name="input_github_app_private_key"></a> [github\_app\_private\_key](#input\_github\_app\_private\_key) | The multiline string of your GitHub App's private key. This can't be set at the same time as github\_token | `string` | `null` | no |
-| <a name="input_github_enterprise_url"></a> [github\_enterprise\_url](#input\_github\_enterprise\_url) | The URL of your GitHub Enterprise server, if you're using one. | `string` | `null` | no |
-| <a name="input_github_token"></a> [github\_token](#input\_github\_token) | Your chosen GitHub PAT token. This can't be set at the same time as github\_app\_* | `string` | `null` | no |
+| <a name="input_github_app_id"></a> [github\_app\_id](#input\_github\_app\_id) | GitHub App ID. This can't be set at the same time as github\_token | `string` | `""` | no |
+| <a name="input_github_app_installation_id"></a> [github\_app\_installation\_id](#input\_github\_app\_installation\_id) | GitHub App Installation ID. This can't be set at the same time as github\_token | `string` | `""` | no |
+| <a name="input_github_app_private_key"></a> [github\_app\_private\_key](#input\_github\_app\_private\_key) | The multiline string of your GitHub App's private key. This can't be set at the same time as github\_token | `string` | `""` | no |
+| <a name="input_github_enterprise_url"></a> [github\_enterprise\_url](#input\_github\_enterprise\_url) | The URL of your GitHub Enterprise server, if you're using one. | `string` | `""` | no |
+| <a name="input_github_token"></a> [github\_token](#input\_github\_token) | Your chosen GitHub PAT token. This can't be set at the same time as github\_app\_* | `string` | `""` | no |
 | <a name="input_image_pull_policy"></a> [image\_pull\_policy](#input\_image\_pull\_policy) | The pull policy of the controller image. | `string` | `"IfNotPresent"` | no |
 | <a name="input_image_pull_secrets"></a> [image\_pull\_secrets](#input\_image\_pull\_secrets) | Specifies the secret to be used when pulling the controller pod containers. | `list(any)` | `[]` | no |
-| <a name="input_leader_election_id"></a> [leader\_election\_id](#input\_leader\_election\_id) | Set the election ID for the controller group. | `string` | `null` | no |
-| <a name="input_log_level"></a> [log\_level](#input\_log\_level) | Set the log level of the controller container. | `string` | `null` | no |
+| <a name="input_leader_election_id"></a> [leader\_election\_id](#input\_leader\_election\_id) | Set the election ID for the controller group. | `string` | `""` | no |
+| <a name="input_log_level"></a> [log\_level](#input\_log\_level) | Set the log level of the controller container. | `string` | `""` | no |
 | <a name="input_max_history"></a> [max\_history](#input\_max\_history) | Max History for Helm. | `number` | `20` | no |
 | <a name="input_metrics_proxy_enabled"></a> [metrics\_proxy\_enabled](#input\_metrics\_proxy\_enabled) | Deploy kube-rbac-proxy container in controller pod. | `bool` | `true` | no |
 | <a name="input_metrics_proxy_image_repository"></a> [metrics\_proxy\_image\_repository](#input\_metrics\_proxy\_image\_repository) | The repository/image of the kube-proxy container. | `string` | `"quay.io/brancz/kube-rbac-proxy"` | no |
@@ -91,10 +91,10 @@ No modules.
 | <a name="input_webhook_server_image_pull_secrets"></a> [webhook\_server\_image\_pull\_secrets](#input\_webhook\_server\_image\_pull\_secrets) | Specifies the secret to be used when pulling the githubWebhookServer pod containers. | `list(any)` | `[]` | no |
 | <a name="input_webhook_server_ingress_annotations"></a> [webhook\_server\_ingress\_annotations](#input\_webhook\_server\_ingress\_annotations) | Set annotations for the githubWebhookServer ingress kind. | `map(any)` | `{}` | no |
 | <a name="input_webhook_server_ingress_enabled"></a> [webhook\_server\_ingress\_enabled](#input\_webhook\_server\_ingress\_enabled) | Whether to deploy an ingress kind for the githubWebhookServer. | `bool` | `false` | no |
-| <a name="input_webhook_server_ingress_hosts"></a> [webhook\_server\_ingress\_hosts](#input\_webhook\_server\_ingress\_hosts) | Set hosts for the githubWebhookServer ingress kind. | `string` | `null` | no |
+| <a name="input_webhook_server_ingress_hosts"></a> [webhook\_server\_ingress\_hosts](#input\_webhook\_server\_ingress\_hosts) | Set hosts for the githubWebhookServer ingress kind. | `string` | `""` | no |
 | <a name="input_webhook_server_ingress_hosts_paths"></a> [webhook\_server\_ingress\_hosts\_paths](#input\_webhook\_server\_ingress\_hosts\_paths) | Set hosts paths for the githubWebhookServer ingress kind. | `list(any)` | `[]` | no |
 | <a name="input_webhook_server_ingress_tls"></a> [webhook\_server\_ingress\_tls](#input\_webhook\_server\_ingress\_tls) | Set tls configuration for the githubWebhookServer ingress kind. | `list(any)` | `[]` | no |
-| <a name="input_webhook_server_log_level"></a> [webhook\_server\_log\_level](#input\_webhook\_server\_log\_level) | Set the log level of the githubWebhookServer container. | `string` | `null` | no |
+| <a name="input_webhook_server_log_level"></a> [webhook\_server\_log\_level](#input\_webhook\_server\_log\_level) | Set the log level of the githubWebhookServer container. | `string` | `""` | no |
 | <a name="input_webhook_server_node_selector"></a> [webhook\_server\_node\_selector](#input\_webhook\_server\_node\_selector) | Set the githubWebhookServer pod nodeSelector. | `map(any)` | `{}` | no |
 | <a name="input_webhook_server_pod_annotations"></a> [webhook\_server\_pod\_annotations](#input\_webhook\_server\_pod\_annotations) | Set annotations for the githubWebhookServer pod. | `map(any)` | `{}` | no |
 | <a name="input_webhook_server_pod_labels"></a> [webhook\_server\_pod\_labels](#input\_webhook\_server\_pod\_labels) | Set labels for the githubWebhookServer pod. | `map(any)` | `{}` | no |
