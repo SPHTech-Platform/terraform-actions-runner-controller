@@ -37,7 +37,7 @@ No modules.
 | <a name="input_chart_labels"></a> [chart\_labels](#input\_chart\_labels) | Set labels to apply to all resources in the chart. | `map(any)` | `{}` | no |
 | <a name="input_chart_name"></a> [chart\_name](#input\_chart\_name) | Helm chart name to provision. | `string` | `"actions-runner-controller"` | no |
 | <a name="input_chart_namespace"></a> [chart\_namespace](#input\_chart\_namespace) | Namespace to install the chart into. | `string` | `"default"` | no |
-| <a name="input_chart_namespace_created"></a> [chart\_namespace\_created](#input\_chart\_namespace\_created) | Create the namespace if it does not yet exist. | `bool` | `false` | no |
+| <a name="input_chart_namespace_create"></a> [chart\_namespace\_create](#input\_chart\_namespace\_created) | Create the namespace if it does not yet exist. | `bool` | `false` | no |
 | <a name="input_chart_repository"></a> [chart\_repository](#input\_chart\_repository) | Helm repository for the chart. | `string` | `"https://actions-runner-controller.github.io/actions-runner-controller"` | no |
 | <a name="input_chart_timeout"></a> [chart\_timeout](#input\_chart\_timeout) | Timeout to wait for the Chart to be deployed. | `number` | `300` | no |
 | <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Version of Chart to install. Set to empty to install the latest version. | `string` | `"0.15.0"` | no |

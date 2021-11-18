@@ -28,7 +28,7 @@ variable "chart_namespace" {
   default     = "default"
 }
 
-variable "chart_namespace_created" {
+variable "chart_namespace_create" {
   description = "Create the namespace if it does not yet exist."
   type        = bool
   default     = false

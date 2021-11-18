@@ -4,7 +4,7 @@ resource "helm_release" "release" {
   repository       = var.chart_repository
   version          = var.chart_version
   namespace        = var.chart_namespace
-  create_namespace = var.chart_namespace_created
+  create_namespace = var.chart_namespace_create
 
   max_history = var.max_history
   timeout     = var.chart_timeout
