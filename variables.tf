@@ -19,7 +19,7 @@ variable "chart_repository" {
 variable "chart_version" {
   description = "Version of Chart to install. Set to empty to install the latest version."
   type        = string
-  default     = "0.15.0"
+  default     = "0.16.1"
 }
 
 variable "chart_namespace" {
@@ -159,7 +159,7 @@ variable "controller_repository" {
 variable "controller_image_tag" {
   description = "The tag of the controller container."
   type        = string
-  default     = "v0.20.3"
+  default     = "v0.21.1"
 }
 
 variable "runner_repository" {
@@ -499,6 +499,12 @@ variable "webhook_server_ingress_enabled" {
   description = "Whether to deploy an ingress kind for the githubWebhookServer."
   type        = bool
   default     = false
+}
+
+variable "webhook_ingress_class_name" {
+  description = "Ingress Class name for the Github Webhook Server"
+  type        = string
+  default     = ""
 }
 
 variable "webhook_server_ingress_annotations" {

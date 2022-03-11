@@ -41,10 +41,10 @@ No modules.
 | <a name="input_chart_namespace_create"></a> [chart\_namespace\_create](#input\_chart\_namespace\_create) | Create the namespace if it does not yet exist. | `bool` | `false` | no |
 | <a name="input_chart_repository"></a> [chart\_repository](#input\_chart\_repository) | Helm repository for the chart. | `string` | `"https://actions-runner-controller.github.io/actions-runner-controller"` | no |
 | <a name="input_chart_timeout"></a> [chart\_timeout](#input\_chart\_timeout) | Timeout to wait for the Chart to be deployed. | `number` | `300` | no |
-| <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Version of Chart to install. Set to empty to install the latest version. | `string` | `"0.15.0"` | no |
+| <a name="input_chart_version"></a> [chart\_version](#input\_chart\_version) | Version of Chart to install. Set to empty to install the latest version. | `string` | `"0.16.1"` | no |
 | <a name="input_controller_affinity"></a> [controller\_affinity](#input\_controller\_affinity) | Set the controller pod affinity rules. | `map(any)` | `{}` | no |
 | <a name="input_controller_env"></a> [controller\_env](#input\_controller\_env) | Set environment variables for the controller container. | `map(any)` | `{}` | no |
-| <a name="input_controller_image_tag"></a> [controller\_image\_tag](#input\_controller\_image\_tag) | The tag of the controller container. | `string` | `"v0.20.3"` | no |
+| <a name="input_controller_image_tag"></a> [controller\_image\_tag](#input\_controller\_image\_tag) | The tag of the controller container. | `string` | `"v0.21.1"` | no |
 | <a name="input_controller_node_selector"></a> [controller\_node\_selector](#input\_controller\_node\_selector) | Set the controller pod nodeSelector. | `map(any)` | `{}` | no |
 | <a name="input_controller_pod_annotations"></a> [controller\_pod\_annotations](#input\_controller\_pod\_annotations) | Set annotations for the controller pod. | `map(string)` | `{}` | no |
 | <a name="input_controller_pod_labels"></a> [controller\_pod\_labels](#input\_controller\_pod\_labels) | Set labels for the controller pod. | `map(string)` | `{}` | no |
@@ -87,6 +87,7 @@ No modules.
 | <a name="input_service_account_created"></a> [service\_account\_created](#input\_service\_account\_created) | Specifies whether a service account should be created. | `bool` | `true` | no |
 | <a name="input_service_account_name"></a> [service\_account\_name](#input\_service\_account\_name) | The name of the service account to use. | `string` | `""` | no |
 | <a name="input_sync_period"></a> [sync\_period](#input\_sync\_period) | Set the period in which the controler reconciles the desired runners count. | `string` | `"10m"` | no |
+| <a name="input_webhook_ingress_class_name"></a> [webhook\_ingress\_class\_name](#input\_webhook\_ingress\_class\_name) | Ingress Class name for the Github Webhook Server | `string` | `""` | no |
 | <a name="input_webhook_server_affinity"></a> [webhook\_server\_affinity](#input\_webhook\_server\_affinity) | Set environment variables for the githubWebhookServer container. | `map(any)` | `{}` | no |
 | <a name="input_webhook_server_enabled"></a> [webhook\_server\_enabled](#input\_webhook\_server\_enabled) | Whether to deploy the webhook server pod. | `bool` | `false` | no |
 | <a name="input_webhook_server_image_pull_secrets"></a> [webhook\_server\_image\_pull\_secrets](#input\_webhook\_server\_image\_pull\_secrets) | Specifies the secret to be used when pulling the githubWebhookServer pod containers. | `list(any)` | `[]` | no |

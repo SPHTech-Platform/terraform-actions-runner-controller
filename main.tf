@@ -108,6 +108,7 @@ locals {
     webhook_server_service_node_port   = var.webhook_server_service_node_port
 
     webhook_server_ingress_enabled     = var.webhook_server_ingress_enabled
+    webhook_ingress_class_name         = var.webhook_ingress_class_name
     webhook_server_ingress_annotations = jsonencode(var.webhook_server_ingress_annotations)
     webhook_server_ingress_hosts       = jsonencode(var.webhook_server_ingress_hosts)
     webhook_server_ingress_tls         = jsonencode(var.webhook_server_ingress_tls)
