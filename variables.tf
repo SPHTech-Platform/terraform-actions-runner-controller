@@ -51,7 +51,7 @@ variable "max_history" {
 ##################################
 variable "chart_labels" {
   description = "Set labels to apply to all resources in the chart."
-  type        = map(any)
+  type        = map(string)
   default     = {}
 }
 
@@ -116,7 +116,7 @@ variable "auth_secret_name" {
 
 variable "auth_secret_annotations" {
   description = "Set the annotations of the auth secret."
-  type        = map(any)
+  type        = map(string)
   default     = {}
 }
 
@@ -206,7 +206,7 @@ variable "service_account_created" {
 
 variable "service_account_annotations" {
   description = "Annotations to add to the service account."
-  type        = map(any)
+  type        = map(string)
   default     = {}
 }
 
@@ -218,13 +218,13 @@ variable "service_account_name" {
 
 variable "controller_pod_annotations" {
   description = "Set annotations for the controller pod."
-  type        = map(any)
+  type        = map(string)
   default     = {}
 }
 
 variable "controller_pod_labels" {
   description = "Set labels for the controller pod."
-  type        = map(any)
+  type        = map(string)
   default     = {}
 }
 
@@ -320,13 +320,13 @@ variable "metrics_service_port" {
 
 variable "metrics_service_annotation" {
   description = "Set annotations for the provisioned metrics service resource."
-  type        = map(any)
+  type        = map(string)
   default     = {}
 }
 
 variable "metrics_service_monitor_labels" {
   description = "Set labels to apply to ServiceMonitor resources."
-  type        = map(any)
+  type        = map(string)
   default     = {}
 }
 
@@ -407,7 +407,7 @@ variable "webhook_server_service_account_created" {
 
 variable "webhook_server_service_account_annotations" {
   description = "Set annotations for the githubWebhookServer service account."
-  type        = map(any)
+  type        = map(string)
   default     = {}
 }
 
@@ -419,13 +419,13 @@ variable "webhook_server_service_account_name" {
 
 variable "webhook_server_pod_annotations" {
   description = "Set annotations for the githubWebhookServer pod."
-  type        = map(any)
+  type        = map(string)
   default     = {}
 }
 
 variable "webhook_server_pod_labels" {
   description = "Set labels for the githubWebhookServer pod."
-  type        = map(any)
+  type        = map(string)
   default     = {}
 }
 
@@ -479,7 +479,7 @@ variable "webhook_server_service_type" {
 
 variable "webhook_server_service_annotations" {
   description = "Set annotations for the githubWebhookServer service."
-  type        = map(any)
+  type        = map(string)
   default     = {}
 }
 
@@ -503,18 +503,12 @@ variable "webhook_server_ingress_enabled" {
 
 variable "webhook_server_ingress_annotations" {
   description = "Set annotations for the githubWebhookServer ingress kind."
-  type        = map(any)
+  type        = map(string)
   default     = {}
 }
 
 variable "webhook_server_ingress_hosts" {
   description = "Set hosts for the githubWebhookServer ingress kind."
-  type        = string
-  default     = ""
-}
-
-variable "webhook_server_ingress_hosts_paths" {
-  description = "Set hosts paths for the githubWebhookServer ingress kind."
   type        = list(any)
   default     = []
 }

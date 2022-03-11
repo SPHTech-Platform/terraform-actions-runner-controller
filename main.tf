@@ -109,8 +109,7 @@ locals {
 
     webhook_server_ingress_enabled     = var.webhook_server_ingress_enabled
     webhook_server_ingress_annotations = jsonencode(var.webhook_server_ingress_annotations)
-    webhook_server_ingress_hosts       = var.webhook_server_ingress_hosts
-    webhook_server_ingress_hosts_paths = jsonencode(var.webhook_server_ingress_hosts_paths)
+    webhook_server_ingress_hosts       = jsonencode(var.webhook_server_ingress_hosts)
     webhook_server_ingress_tls         = jsonencode(var.webhook_server_ingress_tls)
   }
 }
