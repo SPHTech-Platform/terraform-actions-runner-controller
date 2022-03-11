@@ -115,6 +115,13 @@ tolerations: ${tolerations}
 
 affinity: ${affinity}
 
+# Only one of minAvailable or maxUnavailable can be set
+podDisruptionBudget: ${pod_disruption_budget}
+  # enabled: false
+  # minAvailable: 1
+  # maxUnavailable: 3
+
+
 # Leverage a PriorityClass to ensure your pods survive resource shortages
 # ref: https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/
 # PriorityClass: system-cluster-critical
@@ -189,3 +196,9 @@ githubWebhookServer:
     #  - secretName: chart-example-tls
     #    hosts:
     #      - chart-example.local
+
+  # Only one of minAvailable or maxUnavailable can be set
+  podDisruptionBudget: ${webhook_server_pod_disruption_budget}
+    # enabled: false
+    # minAvailable: 1
+    # maxUnavailable: 3

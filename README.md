@@ -47,6 +47,7 @@ No modules.
 | <a name="input_controller_image_tag"></a> [controller\_image\_tag](#input\_controller\_image\_tag) | The tag of the controller container. | `string` | `"v0.21.1"` | no |
 | <a name="input_controller_node_selector"></a> [controller\_node\_selector](#input\_controller\_node\_selector) | Set the controller pod nodeSelector. | `map(any)` | `{}` | no |
 | <a name="input_controller_pod_annotations"></a> [controller\_pod\_annotations](#input\_controller\_pod\_annotations) | Set annotations for the controller pod. | `map(string)` | `{}` | no |
+| <a name="input_controller_pod_disruption_budget"></a> [controller\_pod\_disruption\_budget](#input\_controller\_pod\_disruption\_budget) | Pod disruption budget for controller | `any` | <pre>{<br>  "enabled": true,<br>  "minAvailable": 1<br>}</pre> | no |
 | <a name="input_controller_pod_labels"></a> [controller\_pod\_labels](#input\_controller\_pod\_labels) | Set labels for the controller pod. | `map(string)` | `{}` | no |
 | <a name="input_controller_pod_security_context"></a> [controller\_pod\_security\_context](#input\_controller\_pod\_security\_context) | Set the security context to controller pod. | `map(any)` | `{}` | no |
 | <a name="input_controller_priority_class_name"></a> [controller\_priority\_class\_name](#input\_controller\_priority\_class\_name) | Set the controller pod priorityClassName. | `string` | `""` | no |
@@ -98,6 +99,7 @@ No modules.
 | <a name="input_webhook_server_log_level"></a> [webhook\_server\_log\_level](#input\_webhook\_server\_log\_level) | Set the log level of the githubWebhookServer container. | `string` | `""` | no |
 | <a name="input_webhook_server_node_selector"></a> [webhook\_server\_node\_selector](#input\_webhook\_server\_node\_selector) | Set the githubWebhookServer pod nodeSelector. | `map(any)` | `{}` | no |
 | <a name="input_webhook_server_pod_annotations"></a> [webhook\_server\_pod\_annotations](#input\_webhook\_server\_pod\_annotations) | Set annotations for the githubWebhookServer pod. | `map(string)` | `{}` | no |
+| <a name="input_webhook_server_pod_disruption_budget"></a> [webhook\_server\_pod\_disruption\_budget](#input\_webhook\_server\_pod\_disruption\_budget) | Pod disruption budget for webhook server | `any` | <pre>{<br>  "enabled": true,<br>  "minAvailable": 1<br>}</pre> | no |
 | <a name="input_webhook_server_pod_labels"></a> [webhook\_server\_pod\_labels](#input\_webhook\_server\_pod\_labels) | Set labels for the githubWebhookServer pod. | `map(string)` | `{}` | no |
 | <a name="input_webhook_server_pod_security_context"></a> [webhook\_server\_pod\_security\_context](#input\_webhook\_server\_pod\_security\_context) | Set the security context to githubWebhookServer pod. | `map(any)` | `{}` | no |
 | <a name="input_webhook_server_priority_class_name"></a> [webhook\_server\_priority\_class\_name](#input\_webhook\_server\_priority\_class\_name) | Set the githubWebhookServer pod priorityClassName. | `string` | `""` | no |

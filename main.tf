@@ -61,6 +61,8 @@ locals {
     env                  = jsonencode(var.controller_env)
     priority_class_name  = var.controller_priority_class_name
 
+    pod_disruption_budget = jsonencode(var.controller_pod_disruption_budget)
+
     scope_single_namespace_enabled = var.scope_single_namespace_enabled
     scope_watch_namespace          = var.scope_watch_namespace
 
@@ -101,6 +103,8 @@ locals {
     webhook_server_toleration           = jsonencode(var.webhook_server_toleration)
     webhook_server_affinity             = jsonencode(var.webhook_server_affinity)
     webhook_server_priority_class_name  = var.webhook_server_priority_class_name
+
+    webhook_server_pod_disruption_budget = jsonencode(var.webhook_server_pod_disruption_budget)
 
     webhook_server_service_type        = var.webhook_server_service_type
     webhook_server_service_annotations = jsonencode(var.webhook_server_service_annotations)

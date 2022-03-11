@@ -264,6 +264,15 @@ variable "controller_affinity" {
   default     = {}
 }
 
+variable "controller_pod_disruption_budget" {
+  description = "Pod disruption budget for controller"
+  type        = any
+  default = {
+    enabled      = true
+    minAvailable = 1
+  }
+}
+
 variable "controller_env" {
   description = "Set environment variables for the controller container."
   type        = map(any)
@@ -523,4 +532,13 @@ variable "webhook_server_ingress_tls" {
   description = "Set tls configuration for the githubWebhookServer ingress kind."
   type        = list(any)
   default     = []
+}
+
+variable "webhook_server_pod_disruption_budget" {
+  description = "Pod disruption budget for webhook server"
+  type        = any
+  default = {
+    enabled      = true
+    minAvailable = 1
+  }
 }
