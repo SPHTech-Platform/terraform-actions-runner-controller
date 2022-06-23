@@ -3,11 +3,10 @@ on:
   pull_request:
   push:
     branches:
-      - main
+      - master
 jobs:
   ci:
     uses: SPHTech-Platform/reusable-workflows/.github/workflows/terraform.yaml@main
     with:
-      upload_sarif: false
-      checkov_skip_check: CKV2_AWS_23
-      skip_precommit: terraform-validate,tflint
+      upload_sarif: true
+
