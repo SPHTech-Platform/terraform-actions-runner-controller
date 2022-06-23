@@ -115,6 +115,13 @@ tolerations: ${tolerations}
 
 affinity: ${affinity}
 
+# Only one of minAvailable or maxUnavailable can be set
+podDisruptionBudget: ${pod_disruption_budget}
+  # enabled: false
+  # minAvailable: 1
+  # maxUnavailable: 3
+
+
 # Leverage a PriorityClass to ensure your pods survive resource shortages
 # ref: https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/
 # PriorityClass: system-cluster-critical
@@ -176,13 +183,22 @@ githubWebhookServer:
 %{ endif ~}
   ingress:
     enabled: ${webhook_server_ingress_enabled}
+    ingressClassName: ${webhook_ingress_class_name}
     annotations: ${webhook_server_ingress_annotations}
       # kubernetes.io/ingress.class: nginx
       # kubernetes.io/tls-acme: "true"
-    hosts:
-      - host: ${webhook_server_ingress_hosts}
-        paths: ${webhook_server_ingress_hosts_paths}
+    hosts: ${webhook_server_ingress_hosts}
+      # - host: chart-example.local
+      #   paths: []
+      #    - path: /*
+      #      pathType: ImplementationSpecific
     tls: ${webhook_server_ingress_tls}
     #  - secretName: chart-example-tls
     #    hosts:
     #      - chart-example.local
+
+  # Only one of minAvailable or maxUnavailable can be set
+  podDisruptionBudget: ${webhook_server_pod_disruption_budget}
+    # enabled: false
+    # minAvailable: 1
+    # maxUnavailable: 3

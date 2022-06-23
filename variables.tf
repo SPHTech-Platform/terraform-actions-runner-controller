@@ -19,7 +19,7 @@ variable "chart_repository" {
 variable "chart_version" {
   description = "Version of Chart to install. Set to empty to install the latest version."
   type        = string
-  default     = "0.15.0"
+  default     = "0.16.1"
 }
 
 variable "chart_namespace" {
@@ -51,7 +51,7 @@ variable "max_history" {
 ##################################
 variable "chart_labels" {
   description = "Set labels to apply to all resources in the chart."
-  type        = map(any)
+  type        = map(string)
   default     = {}
 }
 
@@ -116,7 +116,7 @@ variable "auth_secret_name" {
 
 variable "auth_secret_annotations" {
   description = "Set the annotations of the auth secret."
-  type        = map(any)
+  type        = map(string)
   default     = {}
 }
 
@@ -159,7 +159,7 @@ variable "controller_repository" {
 variable "controller_image_tag" {
   description = "The tag of the controller container."
   type        = string
-  default     = "v0.20.3"
+  default     = "v0.21.1"
 }
 
 variable "runner_repository" {
@@ -206,7 +206,7 @@ variable "service_account_created" {
 
 variable "service_account_annotations" {
   description = "Annotations to add to the service account."
-  type        = map(any)
+  type        = map(string)
   default     = {}
 }
 
@@ -218,13 +218,13 @@ variable "service_account_name" {
 
 variable "controller_pod_annotations" {
   description = "Set annotations for the controller pod."
-  type        = map(any)
+  type        = map(string)
   default     = {}
 }
 
 variable "controller_pod_labels" {
   description = "Set labels for the controller pod."
-  type        = map(any)
+  type        = map(string)
   default     = {}
 }
 
@@ -262,6 +262,15 @@ variable "controller_affinity" {
   description = "Set the controller pod affinity rules."
   type        = map(any)
   default     = {}
+}
+
+variable "controller_pod_disruption_budget" {
+  description = "Pod disruption budget for controller"
+  type        = any
+  default = {
+    enabled      = true
+    minAvailable = 1
+  }
 }
 
 variable "controller_env" {
@@ -320,13 +329,13 @@ variable "metrics_service_port" {
 
 variable "metrics_service_annotation" {
   description = "Set annotations for the provisioned metrics service resource."
-  type        = map(any)
+  type        = map(string)
   default     = {}
 }
 
 variable "metrics_service_monitor_labels" {
   description = "Set labels to apply to ServiceMonitor resources."
-  type        = map(any)
+  type        = map(string)
   default     = {}
 }
 
@@ -407,7 +416,7 @@ variable "webhook_server_service_account_created" {
 
 variable "webhook_server_service_account_annotations" {
   description = "Set annotations for the githubWebhookServer service account."
-  type        = map(any)
+  type        = map(string)
   default     = {}
 }
 
@@ -419,13 +428,13 @@ variable "webhook_server_service_account_name" {
 
 variable "webhook_server_pod_annotations" {
   description = "Set annotations for the githubWebhookServer pod."
-  type        = map(any)
+  type        = map(string)
   default     = {}
 }
 
 variable "webhook_server_pod_labels" {
   description = "Set labels for the githubWebhookServer pod."
-  type        = map(any)
+  type        = map(string)
   default     = {}
 }
 
@@ -479,7 +488,7 @@ variable "webhook_server_service_type" {
 
 variable "webhook_server_service_annotations" {
   description = "Set annotations for the githubWebhookServer service."
-  type        = map(any)
+  type        = map(string)
   default     = {}
 }
 
@@ -501,20 +510,20 @@ variable "webhook_server_ingress_enabled" {
   default     = false
 }
 
+variable "webhook_ingress_class_name" {
+  description = "Ingress Class name for the Github Webhook Server"
+  type        = string
+  default     = ""
+}
+
 variable "webhook_server_ingress_annotations" {
   description = "Set annotations for the githubWebhookServer ingress kind."
-  type        = map(any)
+  type        = map(string)
   default     = {}
 }
 
 variable "webhook_server_ingress_hosts" {
   description = "Set hosts for the githubWebhookServer ingress kind."
-  type        = string
-  default     = ""
-}
-
-variable "webhook_server_ingress_hosts_paths" {
-  description = "Set hosts paths for the githubWebhookServer ingress kind."
   type        = list(any)
   default     = []
 }
@@ -523,4 +532,13 @@ variable "webhook_server_ingress_tls" {
   description = "Set tls configuration for the githubWebhookServer ingress kind."
   type        = list(any)
   default     = []
+}
+
+variable "webhook_server_pod_disruption_budget" {
+  description = "Pod disruption budget for webhook server"
+  type        = any
+  default = {
+    enabled      = true
+    minAvailable = 1
+  }
 }
