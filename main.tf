@@ -118,4 +118,3 @@ locals {
     webhook_server_ingress_tls         = jsonencode(var.webhook_server_ingress_tls)
   }
 }
-
