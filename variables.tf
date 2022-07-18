@@ -67,6 +67,12 @@ variable "sync_period" {
   default     = "10m"
 }
 
+variable "leader_election_id" {
+  description = "Set the election ID for the controller group."
+  type        = string
+  default     = "actions-runner-controller"
+}
+
 variable "github_enterprise_url" {
   description = "The URL of your GitHub Enterprise server, if you're using one."
   type        = string
@@ -128,6 +134,12 @@ variable "github_app_private_key" {
 
 variable "github_token" {
   description = "Your chosen GitHub PAT token. This can't be set at the same time as github_app_*"
+  type        = string
+  default     = ""
+}
+
+variable "log_level" {
+  description = "Set the log level of the controller container."
   type        = string
   default     = ""
 }

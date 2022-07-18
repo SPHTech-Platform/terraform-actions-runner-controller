@@ -13,7 +13,7 @@ defaultScaleDownDelay: 10m
 enableLeaderElection: true
 # Specifies the controller id for leader election.
 # Must be unique if more than one controller installed onto the same namespace.
-#leaderElectionId: "actions-runner-controller"
+leaderElectionId: ${leader_election_id}
 
 # DEPRECATED: This has been removed as unnecessary in #1192
 # The controller tries its best not to repeat the duplicate GitHub API call
@@ -28,6 +28,9 @@ githubEnterpriseServerURL: ${github_enterprise_url}
 #githubURL: ""
 #githubUploadURL: ""
 #runnerGithubURL: ""
+
+# Set the log level of the controller container.
+logLevel: ${log_level}
 
 # Only 1 authentication method can be deployed at a time
 # Uncomment the configuration you are applying and fill in the details

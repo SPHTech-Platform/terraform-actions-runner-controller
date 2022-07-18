@@ -21,7 +21,6 @@ locals {
 
     sync_period           = var.sync_period
     leader_election_id    = var.leader_election_id
-    api_cache_duration    = var.api_cache_duration
     github_enterprise_url = var.github_enterprise_url
     log_level             = var.log_level
 
