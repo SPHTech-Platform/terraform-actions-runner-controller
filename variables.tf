@@ -19,7 +19,7 @@ variable "chart_repository" {
 variable "chart_version" {
   description = "Version of Chart to install. Set to empty to install the latest version."
   type        = string
-  default     = "0.16.1"
+  default     = "0.20.0"
 }
 
 variable "chart_namespace" {
@@ -67,28 +67,16 @@ variable "sync_period" {
   default     = "10m"
 }
 
-variable "leader_election_id" {
-  description = "Set the election ID for the controller group."
-  type        = string
-  default     = ""
-}
-
-variable "api_cache_duration" {
-  description = "Set the cache period for API calls. Defaults to syncPeriod - 10s."
-  type        = string
-  default     = ""
-}
-
 variable "github_enterprise_url" {
   description = "The URL of your GitHub Enterprise server, if you're using one."
   type        = string
   default     = ""
 }
 
-variable "log_level" {
-  description = "Set the log level of the controller container."
-  type        = string
-  default     = ""
+variable "auth_secret_enabled" {
+  description = "Expose GITHUB_* Environment variables manager container"
+  type        = bool
+  default     = true
 }
 
 variable "auth_secret_created" {
@@ -157,9 +145,9 @@ variable "controller_repository" {
 }
 
 variable "controller_image_tag" {
-  description = "The tag of the controller container."
+  description = "The tag of the controller container. If not specified, it's the appVersion inside Chart.yaml"
   type        = string
-  default     = "v0.21.1"
+  default     = "v0.25.0"
 }
 
 variable "runner_repository" {
@@ -172,6 +160,12 @@ variable "runner_image_tag" {
   description = "The tag of the actions runner container."
   type        = string
   default     = "latest"
+}
+
+variable "runner_image_pull_secrets" {
+  description = "Specifies the secret to be used when pulling the runner pod containers."
+  type        = list(any)
+  default     = []
 }
 
 variable "dind_sidecar_repository" {
@@ -354,7 +348,7 @@ variable "metrics_proxy_image_repository" {
 variable "metrics_proxy_image_tag" {
   description = "The tag of the kube-proxy container."
   type        = string
-  default     = "v0.10.0"
+  default     = "v0.13.0"
 }
 
 ##############################
@@ -382,6 +376,12 @@ variable "webhook_server_log_level" {
   description = "Set the log level of the githubWebhookServer container."
   type        = string
   default     = ""
+}
+
+variable "webhook_server_secret_enabled" {
+  description = "Whether to enable the webhook hook secret."
+  type        = bool
+  default     = false
 }
 
 variable "webhook_server_secret_created" {
