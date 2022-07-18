@@ -36,15 +36,16 @@ locals {
     github_app_private_key     = var.github_app_private_key
     github_token               = var.github_token
 
-    docker_registry_mirror  = var.docker_registry_mirror
-    controller_repository   = var.controller_repository
-    controller_image_tag    = var.controller_image_tag
-    runner_repository       = var.runner_repository
-    runner_image_tag        = var.runner_image_tag
-    dind_sidecar_repository = var.dind_sidecar_repository
-    dind_sidecar_image_tag  = var.dind_sidecar_image_tag
-    image_pull_policy       = var.image_pull_policy
-    image_pull_secrets      = jsonencode(var.image_pull_secrets)
+    docker_registry_mirror    = var.docker_registry_mirror
+    controller_repository     = var.controller_repository
+    controller_image_tag      = var.controller_image_tag
+    runner_repository         = var.runner_repository
+    runner_image_tag          = var.runner_image_tag
+    runner_image_pull_secrets = jsonencode(var.runner_image_pull_secrets)
+    dind_sidecar_repository   = var.dind_sidecar_repository
+    dind_sidecar_image_tag    = var.dind_sidecar_image_tag
+    image_pull_policy         = var.image_pull_policy
+    image_pull_secrets        = jsonencode(var.image_pull_secrets)
 
     service_account_created     = var.service_account_created
     service_account_annotations = jsonencode(var.service_account_annotations)
