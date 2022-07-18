@@ -85,6 +85,7 @@ locals {
     webhook_server_sync_period = var.webhook_server_sync_period
     webhook_server_log_level   = var.webhook_server_log_level
 
+    webhook_server_secret_enabled = var.webhook_server_secret_enabled
     webhook_server_secret_created = var.webhook_server_secret_created
     webhook_server_secret_name    = var.webhook_server_secret_name
     webhook_server_secret_token   = var.webhook_server_secret_token
