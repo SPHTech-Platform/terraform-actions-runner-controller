@@ -26,6 +26,7 @@ locals {
 
     # Can only choose 1 authentication method at a time:
     # either GitHub App or Personal Access Token
+    auth_secret_enabled        = var.auth_secret_enabled
     auth_secret_created        = var.auth_secret_created
     auth_method                = var.auth_method
     auth_secret_name           = var.auth_secret_name
