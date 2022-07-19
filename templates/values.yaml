@@ -167,7 +167,7 @@ scope:
   # The default value is "", which means the namespace of the controller
   watchNamespace: ${scope_watch_namespace}
 
-certManagerEnabled: false
+certManagerEnabled: ${cert_manager_enabled}
 
 admissionWebHooks:
   {}

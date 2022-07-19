@@ -67,6 +67,8 @@ locals {
     scope_single_namespace_enabled = var.scope_single_namespace_enabled
     scope_watch_namespace          = var.scope_watch_namespace
 
+    cert_manager_enabled = var.cert_manager_enabled
+
     service_type       = var.controller_service_type
     service_port       = var.controller_service_port
     service_annotation = jsonencode(var.controller_service_annotation)

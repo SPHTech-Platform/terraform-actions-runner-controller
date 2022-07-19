@@ -303,6 +303,12 @@ variable "scope_watch_namespace" {
   default     = ""
 }
 
+variable "cert_manager_enabled" {
+  description = "Whether to enable the cert manager."
+  type        = bool
+  default     = true
+}
+
 variable "controller_service_type" {
   description = "Set controller service type."
   type        = string
