@@ -560,3 +560,30 @@ variable "webhook_server_pod_disruption_budget" {
     minAvailable = 1
   }
 }
+
+variable "github_organizations" {
+  description = "Github organization for deploying org runner"
+  type = list(object({
+    name     = string
+    replicas = number
+    label    = string
+  }))
+  default = []
+}
+
+variable "create_iam_role" {
+  description = "Whether to create iam role."
+  type        = bool
+  default     = true
+}
+
+variable "cluster_name" {
+  description = "The name of the cluster."
+  type        = string
+}
+
+variable "role_name" {
+  description = "Name of the iam role to be created."
+  type        = string
+  default     = ""
+}
