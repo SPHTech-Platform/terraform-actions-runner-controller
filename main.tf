@@ -13,7 +13,7 @@ resource "helm_release" "release" {
     templatefile("${path.module}/templates/values.yaml", local.values),
   ]
 
-  dynmaic "set" {
+  dynamic "set" {
     for_each = var.auth_method == "github-app" ? [var.auth_method] : []
     content {
       name  = "github_app_private_key"
