@@ -12,6 +12,14 @@ resource "helm_release" "release" {
   values = [
     templatefile("${path.module}/templates/values.yaml", local.values),
   ]
+
+  dynmaic "set" {
+    for_each = var.auth_method == "github-app" ? [var.auth_method] : []
+    content {
+      name  = "github_app_private_key"
+      value = var.github_app_private_key
+    }
+  }
 }
 
 locals {
@@ -33,8 +41,8 @@ locals {
     auth_secret_annotations    = jsonencode(var.auth_secret_annotations)
     github_app_id              = var.github_app_id
     github_app_installation_id = var.github_app_installation_id
-    github_app_private_key     = indent(2, var.github_app_private_key)
-    github_token               = var.github_token
+    # github_app_private_key     = indent(2, var.github_app_private_key)
+    github_token = var.github_token
 
     docker_registry_mirror    = var.docker_registry_mirror
     controller_repository     = var.controller_repository
