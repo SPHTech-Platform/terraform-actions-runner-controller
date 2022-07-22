@@ -5,7 +5,7 @@ apiVersion: actions.summerwind.dev/v1alpha1
 kind: RunnerDeployment
 metadata:
   name: ${lower(each.value.name)}-runner-deployment
-  namespace: ${var.namespace}
+  namespace: ${var.chart_namespace}
 spec:
   replicas: ${each.value.replicas}
   template:
