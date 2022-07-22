@@ -19,5 +19,5 @@ spec:
         - ${each.value.label}
 YAML
 
-  depends_on = [helm_release.runner]
+  depends_on = [helm_release.release]
 }

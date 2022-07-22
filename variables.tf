@@ -582,3 +582,14 @@ variable "role_name" {
   type        = string
   default     = ""
 }
+
+variable "role_policy_arns" {
+  description = "ARNs of any policies to attach to the IAM role"
+  type        = map(string)
+  default     = {}
+}
+
+variable "oidc_provider_arn" {
+  description = "OIDC Provider ARN for IRSA"
+  type        = string
+}
