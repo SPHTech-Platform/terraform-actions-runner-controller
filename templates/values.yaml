@@ -51,7 +51,7 @@ authSecret:
   github_app_id: "${github_app_id}"
   github_app_installation_id: "${github_app_installation_id}"
   github_app_private_key: |-
-    ${github_app_private_key}
+    ${indent(2,github_app_private_key)}
 %{ endif ~}
 %{ if auth_method == "pat" ~}
   ### GitHub PAT Configuration

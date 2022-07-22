@@ -571,12 +571,6 @@ variable "github_organizations" {
   default = []
 }
 
-variable "create_iam_role" {
-  description = "Whether to create iam role."
-  type        = bool
-  default     = true
-}
-
 variable "role_name" {
   description = "Name of the iam role to be created."
   type        = string
