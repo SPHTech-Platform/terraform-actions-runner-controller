@@ -565,6 +565,7 @@ variable "github_organizations" {
   description = "Github organization for deploying org runner"
   type = list(object({
     name     = string
+    group    = optional(string) # Runner group needs to be created first
     replicas = number
     label    = string
   }))
