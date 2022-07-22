@@ -577,11 +577,6 @@ variable "create_iam_role" {
   default     = true
 }
 
-variable "cluster_name" {
-  description = "The name of the cluster."
-  type        = string
-}
-
 variable "role_name" {
   description = "Name of the iam role to be created."
   type        = string
