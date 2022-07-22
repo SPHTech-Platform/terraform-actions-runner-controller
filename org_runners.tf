@@ -12,7 +12,7 @@ spec:
     spec:
       organization: ${each.value.name}
       serviceAccountName: ${var.service_account_name}
-      group: {{ ${each.value.group} | default "Default" }}
+      group: {{ ${jsonencode(each.value.group)} | default "Default" }}
       imagePullPolicy: IfNotPresent
       securityContext:
         fsGroup: 1000
