@@ -564,10 +564,12 @@ variable "webhook_server_pod_disruption_budget" {
 variable "github_organizations" {
   description = "Github organization for deploying org runner"
   type = list(object({
-    name     = string
-    group    = optional(string) # Runner group needs to be created first
-    replicas = number
-    label    = string
+    name        = string
+    group       = optional(string) # Runner group needs to be created first
+    replicas    = number
+    label       = string
+    tolerations = optional(list(any))
+    affinity    = optional(any)
   }))
   default = []
 }

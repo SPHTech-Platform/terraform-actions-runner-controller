@@ -18,6 +18,8 @@ spec:
         fsGroup: 1000
       labels:
         - ${each.value.label}
+      tolerations: %{if each.value.tolerations != null}${jsonencode(each.value.tolerations)}%{else}""%{endif}
+      affinity: %{if each.value.affinity != null}${jsonencode(each.value.affinity)}%{else}""%{endif}
 YAML
 
   depends_on = [helm_release.release]
