@@ -480,7 +480,7 @@ variable "webhook_server_node_selector" {
   default     = {}
 }
 
-variable "webhook_server_toleration" {
+variable "webhook_server_tolerations" {
   description = "Set the githubWebhookServer pod tolerations."
   type        = list(any)
   default     = []

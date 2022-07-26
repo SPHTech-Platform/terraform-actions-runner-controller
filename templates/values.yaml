@@ -213,7 +213,7 @@ githubWebhookServer:
   securityContext: ${webhook_server_security_context}
   resources: ${webhook_server_resources}
   nodeSelector: ${webhook_server_node_selector}
-  tolerations: ${webhook_server_toleration}
+  tolerations: ${webhook_server_tolerations}
   affinity: ${webhook_server_affinity}
   priorityClassName: ${webhook_server_priority_class_name}
   service:

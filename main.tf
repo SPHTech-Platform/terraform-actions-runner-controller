@@ -112,7 +112,7 @@ locals {
     webhook_server_security_context     = jsonencode(var.webhook_server_security_context)
     webhook_server_resources            = jsonencode(var.webhook_server_resources)
     webhook_server_node_selector        = jsonencode(var.webhook_server_node_selector)
-    webhook_server_toleration           = jsonencode(var.webhook_server_toleration)
+    webhook_server_tolerations          = jsonencode(var.webhook_server_tolerations)
     webhook_server_affinity             = jsonencode(var.webhook_server_affinity)
     webhook_server_priority_class_name  = var.webhook_server_priority_class_name
 
