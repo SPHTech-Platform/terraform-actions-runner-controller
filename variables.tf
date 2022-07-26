@@ -266,7 +266,7 @@ variable "controller_tolerations" {
 
 variable "controller_affinity" {
   description = "Set the controller pod affinity rules."
-  type        = map(any)
+  type        = any
   default     = {}
 }
 
@@ -488,7 +488,7 @@ variable "webhook_server_tolerations" {
 
 variable "webhook_server_affinity" {
   description = "Set environment variables for the githubWebhookServer container."
-  type        = map(any)
+  type        = any
   default     = {}
 }
 
