@@ -1,5 +1,5 @@
 resource "kubectl_manifest" "github_org_runners" {
-  for_each  = { for org in var.github_organizations : org.name => org }
+  for_each  = { for org in var.github_org_runners : org.name => org }
   yaml_body = <<YAML
 apiVersion: actions.summerwind.dev/v1alpha1
 kind: RunnerDeployment
@@ -18,6 +18,7 @@ spec:
         fsGroup: 1000
       labels:
         - ${each.value.label}
+      resources: %{if each.value.resources != null}${jsonencode(each.value.resources)}%{else}{}%{endif}
       tolerations: %{if each.value.tolerations != null}${jsonencode(each.value.tolerations)}%{else}[]%{endif}
       affinity: %{if each.value.affinity != null}${jsonencode(each.value.affinity)}%{else}{}%{endif}
 YAML

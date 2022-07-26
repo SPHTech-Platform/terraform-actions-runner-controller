@@ -249,7 +249,16 @@ variable "controller_security_context" {
 variable "controller_resources" {
   description = "Set the controller pod resources."
   type        = map(any)
-  default     = {}
+  default = {
+    requests = {
+      cpu    = "100m"
+      memory = "128Mi"
+    }
+    limits = {
+      cpu    = "100m"
+      memory = "128Mi"
+    }
+  }
 }
 
 variable "controller_node_selector" {
@@ -471,7 +480,16 @@ variable "webhook_server_security_context" {
 variable "webhook_server_resources" {
   description = "Set the githubWebhookServer pod resources."
   type        = map(any)
-  default     = {}
+  default = {
+    requests = {
+      cpu    = "100m"
+      memory = "128Mi"
+    }
+    limits = {
+      cpu    = "100m"
+      memory = "128Mi"
+    }
+  }
 }
 
 variable "webhook_server_node_selector" {
@@ -561,15 +579,16 @@ variable "webhook_server_pod_disruption_budget" {
   }
 }
 
-variable "github_organizations" {
+variable "github_org_runners" {
   description = "Github organization for deploying org runner"
   type = list(object({
-    name        = string
+    name        = string           # Organization Name
     group       = optional(string) # Runner group needs to be created first
     replicas    = number
     label       = string
     tolerations = optional(list(any))
     affinity    = optional(any)
+    resources   = optional(map(any))
   }))
   default = []
 }
