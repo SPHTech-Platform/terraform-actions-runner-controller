@@ -6,7 +6,7 @@ module "action_runner_irsa" {
   role_name_prefix = var.role_name != "" ? null : "iam-gh-runner"
 
   oidc_providers = {
-    drupal = {
+    runner = {
       provider_arn               = var.oidc_provider_arn
       namespace_service_accounts = ["${var.chart_namespace}:${var.service_account_name}"]
     }
