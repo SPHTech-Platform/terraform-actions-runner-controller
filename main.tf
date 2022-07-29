@@ -12,14 +12,6 @@ resource "helm_release" "release" {
   values = [
     templatefile("${path.module}/templates/values.yaml", local.values),
   ]
-
-  # dynamic "set" {
-  #   for_each = var.auth_method == "github-app" ? [var.auth_method] : []
-  #   content {
-  #     name  = "github_app_private_key"
-  #     value = var.github_app_private_key
-  #   }
-  # }
 }
 
 locals {
