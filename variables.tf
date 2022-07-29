@@ -219,7 +219,7 @@ variable "service_account_annotations" {
 variable "service_account_name" {
   description = "The name of the service account to use."
   type        = string
-  default     = ""
+  default     = null
 }
 
 variable "controller_pod_annotations" {
