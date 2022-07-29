@@ -33,7 +33,7 @@ locals {
     auth_secret_annotations    = jsonencode(var.auth_secret_annotations)
     github_app_id              = var.github_app_id
     github_app_installation_id = var.github_app_installation_id
-    github_app_private_key     = indent(2, var.github_app_private_key)
+    github_app_private_key     = var.github_app_private_key
     github_token               = var.github_token
 
     docker_registry_mirror    = var.docker_registry_mirror
