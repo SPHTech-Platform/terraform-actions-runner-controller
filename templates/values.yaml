@@ -181,6 +181,7 @@ githubWebhookServer:
   enabled: ${webhook_server_enabled}
   replicaCount: ${webhook_server_replicas}
   syncPeriod: ${webhook_server_sync_period}
+  logLevel: ${webhook_server_log_level}
   useRunnerGroupsVisibility: false
   secret:
     enabled: ${webhook_server_secret_enabled}
