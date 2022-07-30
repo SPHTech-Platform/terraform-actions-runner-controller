@@ -6,27 +6,42 @@ labels: ${labels}
 
 replicaCount: ${replicas}
 
+webhookPort: 9443
 syncPeriod: ${sync_period}
+defaultScaleDownDelay: 10m
 
 enableLeaderElection: true
 # Specifies the controller id for leader election.
 # Must be unique if more than one controller installed onto the same namespace.
 leaderElectionId: ${leader_election_id}
 
+# DEPRECATED: This has been removed as unnecessary in #1192
 # The controller tries its best not to repeat the duplicate GitHub API call
 # within this duration.
 # Defaults to syncPeriod - 10s.
-githubAPICacheDuration: ${api_cache_duration}
+#githubAPICacheDuration: 30s
 
 # The URL of your GitHub Enterprise server, if you're using one.
 githubEnterpriseServerURL: ${github_enterprise_url}
+
+# Override GitHub URLs in case of using proxy APIs
+#githubURL: ""
+#githubUploadURL: ""
+#runnerGithubURL: ""
 
 # Set the log level of the controller container.
 logLevel: ${log_level}
 
 # Only 1 authentication method can be deployed at a time
 # Uncomment the configuration you are applying and fill in the details
+#
+# If authSecret.enabled=true these values are inherited to actions-runner-controller's controller-manager container's env.
+#
+# Do set authSecret.enabled=false and set env if you want full control over
+# the GitHub authn related envvars of the container.
+# See https://github.com/actions-runner-controller/actions-runner-controller/pull/937 for more details.
 authSecret:
+  enabled: ${auth_secret_enabled}
   create: ${auth_secret_created}
   name: ${auth_secret_name}
   annotations: ${auth_secret_annotations}
@@ -36,12 +51,15 @@ authSecret:
   github_app_id: "${github_app_id}"
   github_app_installation_id: "${github_app_installation_id}"
   github_app_private_key: |-
-    ${github_app_private_key}
+    ${indent(2,github_app_private_key)}
 %{ endif ~}
 %{ if auth_method == "pat" ~}
   ### GitHub PAT Configuration
   github_token: ${github_token}
 %{ endif ~}
+  ### Basic auth for github API proxy
+  #github_basicauth_username: ""
+  #github_basicauth_password: ""
 
 dockerRegistryMirror: ${docker_registry_mirror}
 image:
@@ -50,6 +68,9 @@ image:
   actionsRunnerRepositoryAndTag: "${runner_repository}:${runner_image_tag}"
   dindSidecarRepositoryAndTag: "${dind_sidecar_repository}:${dind_sidecar_image_tag}"
   pullPolicy: ${image_pull_policy}
+  # The default image-pull secrets name for self-hosted runner container.
+  # It's added to spec.ImagePullSecrets of self-hosted runner pods.
+  actionsRunnerImagePullSecrets: ${runner_image_pull_secrets}
 
 imagePullSecrets: ${image_pull_secrets}
 nameOverride: ""
@@ -121,7 +142,6 @@ podDisruptionBudget: ${pod_disruption_budget}
   # minAvailable: 1
   # maxUnavailable: 3
 
-
 # Leverage a PriorityClass to ensure your pods survive resource shortages
 # ref: https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/
 # PriorityClass: system-cluster-critical
@@ -132,6 +152,14 @@ env: ${env}
   # https_proxy: "proxy.com:8080"
   # no_proxy: ""
 
+## specify additional volumes to mount in the manager container, this can be used
+## to specify additional storage of material or to inject files from ConfigMaps
+## into the running container
+additionalVolumes: []
+
+## specify where the additional volumes are mounted in the manager container
+additionalVolumeMounts: []
+
 scope:
   # If true, the controller will only watch custom resources in a single namespace
   singleNamespace: ${scope_single_namespace_enabled}
@@ -139,16 +167,35 @@ scope:
   # The default value is "", which means the namespace of the controller
   watchNamespace: ${scope_watch_namespace}
 
+certManagerEnabled: ${cert_manager_enabled}
+
+admissionWebHooks:
+  {}
+  #caBundle: "Ci0tLS0tQk...<base64-encoded PEM bundle containing the CA that signed the webhook's serving certificate>...tLS0K"
+
+# There may be alternatives to setting `hostNetwork: true`, see
+# https://github.com/actions-runner-controller/actions-runner-controller/issues/1005#issuecomment-993097155
+#hostNetwork: true
+
 githubWebhookServer:
   enabled: ${webhook_server_enabled}
   replicaCount: ${webhook_server_replicas}
   syncPeriod: ${webhook_server_sync_period}
   logLevel: ${webhook_server_log_level}
+  useRunnerGroupsVisibility: false
   secret:
+    enabled: ${webhook_server_secret_enabled}
     create: ${webhook_server_secret_created}
     name: ${webhook_server_secret_name}
     ### GitHub Webhook Configuration
     github_webhook_secret_token: ${webhook_server_secret_token}
+    ### GitHub Apps Configuration
+    ## NOTE: IDs MUST be strings, use quotes
+    #github_app_id: ""
+    #github_app_installation_id: ""
+    #github_app_private_key: |
+    ### GitHub PAT Configuration
+    #github_token: ""
   imagePullSecrets: ${webhook_server_image_pull_secrets}
   nameOverride: ""
   fullnameOverride: ""
@@ -167,7 +214,7 @@ githubWebhookServer:
   securityContext: ${webhook_server_security_context}
   resources: ${webhook_server_resources}
   nodeSelector: ${webhook_server_node_selector}
-  tolerations: ${webhook_server_toleration}
+  tolerations: ${webhook_server_tolerations}
   affinity: ${webhook_server_affinity}
   priorityClassName: ${webhook_server_priority_class_name}
   service:
@@ -192,6 +239,20 @@ githubWebhookServer:
       #   paths: []
       #    - path: /*
       #      pathType: ImplementationSpecific
+      #   Extra paths that are not automatically connected to the server. This is useful when working with annotation based services.
+      #   extraPaths: []
+      #   - path: /*
+      #     backend:
+      #       serviceName: ssl-redirect
+      #       servicePort: use-annotation
+      #   # for Kubernetes >=1.19 (when "networking.k8s.io/v1" is used)
+      #   - path: /*
+      #     pathType: Prefix
+      #     backend:
+      #       service:
+      #         name: ssl-redirect
+      #         port:
+      #           name: use-annotation
     tls: ${webhook_server_ingress_tls}
     #  - secretName: chart-example-tls
     #    hosts:

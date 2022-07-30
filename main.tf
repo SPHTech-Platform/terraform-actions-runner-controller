@@ -21,30 +21,31 @@ locals {
 
     sync_period           = var.sync_period
     leader_election_id    = var.leader_election_id
-    api_cache_duration    = var.api_cache_duration
     github_enterprise_url = var.github_enterprise_url
     log_level             = var.log_level
 
     # Can only choose 1 authentication method at a time:
     # either GitHub App or Personal Access Token
+    auth_secret_enabled        = var.auth_secret_enabled
     auth_secret_created        = var.auth_secret_created
     auth_method                = var.auth_method
     auth_secret_name           = var.auth_secret_name
     auth_secret_annotations    = jsonencode(var.auth_secret_annotations)
     github_app_id              = var.github_app_id
     github_app_installation_id = var.github_app_installation_id
-    github_app_private_key     = var.github_app_private_key
+    github_app_private_key     = indent(2, var.github_app_private_key)
     github_token               = var.github_token
 
-    docker_registry_mirror  = var.docker_registry_mirror
-    controller_repository   = var.controller_repository
-    controller_image_tag    = var.controller_image_tag
-    runner_repository       = var.runner_repository
-    runner_image_tag        = var.runner_image_tag
-    dind_sidecar_repository = var.dind_sidecar_repository
-    dind_sidecar_image_tag  = var.dind_sidecar_image_tag
-    image_pull_policy       = var.image_pull_policy
-    image_pull_secrets      = jsonencode(var.image_pull_secrets)
+    docker_registry_mirror    = var.docker_registry_mirror
+    controller_repository     = var.controller_repository
+    controller_image_tag      = var.controller_image_tag
+    runner_repository         = var.runner_repository
+    runner_image_tag          = var.runner_image_tag
+    runner_image_pull_secrets = jsonencode(var.runner_image_pull_secrets)
+    dind_sidecar_repository   = var.dind_sidecar_repository
+    dind_sidecar_image_tag    = var.dind_sidecar_image_tag
+    image_pull_policy         = var.image_pull_policy
+    image_pull_secrets        = jsonencode(var.image_pull_secrets)
 
     service_account_created     = var.service_account_created
     service_account_annotations = jsonencode(var.service_account_annotations)
@@ -66,6 +67,8 @@ locals {
     scope_single_namespace_enabled = var.scope_single_namespace_enabled
     scope_watch_namespace          = var.scope_watch_namespace
 
+    cert_manager_enabled = var.cert_manager_enabled
+
     service_type       = var.controller_service_type
     service_port       = var.controller_service_port
     service_annotation = jsonencode(var.controller_service_annotation)
@@ -84,6 +87,7 @@ locals {
     webhook_server_sync_period = var.webhook_server_sync_period
     webhook_server_log_level   = var.webhook_server_log_level
 
+    webhook_server_secret_enabled = var.webhook_server_secret_enabled
     webhook_server_secret_created = var.webhook_server_secret_created
     webhook_server_secret_name    = var.webhook_server_secret_name
     webhook_server_secret_token   = var.webhook_server_secret_token
@@ -100,7 +104,7 @@ locals {
     webhook_server_security_context     = jsonencode(var.webhook_server_security_context)
     webhook_server_resources            = jsonencode(var.webhook_server_resources)
     webhook_server_node_selector        = jsonencode(var.webhook_server_node_selector)
-    webhook_server_toleration           = jsonencode(var.webhook_server_toleration)
+    webhook_server_tolerations          = jsonencode(var.webhook_server_tolerations)
     webhook_server_affinity             = jsonencode(var.webhook_server_affinity)
     webhook_server_priority_class_name  = var.webhook_server_priority_class_name
 
@@ -118,4 +122,3 @@ locals {
     webhook_server_ingress_tls         = jsonencode(var.webhook_server_ingress_tls)
   }
 }
-

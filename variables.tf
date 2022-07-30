@@ -19,7 +19,7 @@ variable "chart_repository" {
 variable "chart_version" {
   description = "Version of Chart to install. Set to empty to install the latest version."
   type        = string
-  default     = "0.16.1"
+  default     = "0.20.0"
 }
 
 variable "chart_namespace" {
@@ -70,13 +70,7 @@ variable "sync_period" {
 variable "leader_election_id" {
   description = "Set the election ID for the controller group."
   type        = string
-  default     = ""
-}
-
-variable "api_cache_duration" {
-  description = "Set the cache period for API calls. Defaults to syncPeriod - 10s."
-  type        = string
-  default     = ""
+  default     = "actions-runner-controller"
 }
 
 variable "github_enterprise_url" {
@@ -85,10 +79,10 @@ variable "github_enterprise_url" {
   default     = ""
 }
 
-variable "log_level" {
-  description = "Set the log level of the controller container."
-  type        = string
-  default     = ""
+variable "auth_secret_enabled" {
+  description = "Expose GITHUB_* Environment variables manager container"
+  type        = bool
+  default     = true
 }
 
 variable "auth_secret_created" {
@@ -144,6 +138,12 @@ variable "github_token" {
   default     = ""
 }
 
+variable "log_level" {
+  description = "Set the log level of the controller container."
+  type        = string
+  default     = ""
+}
+
 variable "docker_registry_mirror" {
   description = "The default Docker Registry Mirror used by runners."
   type        = string
@@ -157,9 +157,9 @@ variable "controller_repository" {
 }
 
 variable "controller_image_tag" {
-  description = "The tag of the controller container."
+  description = "The tag of the controller container. If not specified, it's the appVersion inside Chart.yaml"
   type        = string
-  default     = "v0.21.1"
+  default     = "v0.25.0"
 }
 
 variable "runner_repository" {
@@ -172,6 +172,12 @@ variable "runner_image_tag" {
   description = "The tag of the actions runner container."
   type        = string
   default     = "latest"
+}
+
+variable "runner_image_pull_secrets" {
+  description = "Specifies the secret to be used when pulling the runner pod containers."
+  type        = list(any)
+  default     = []
 }
 
 variable "dind_sidecar_repository" {
@@ -213,7 +219,7 @@ variable "service_account_annotations" {
 variable "service_account_name" {
   description = "The name of the service account to use."
   type        = string
-  default     = ""
+  default     = "actions-runner-controller"
 }
 
 variable "controller_pod_annotations" {
@@ -243,7 +249,16 @@ variable "controller_security_context" {
 variable "controller_resources" {
   description = "Set the controller pod resources."
   type        = map(any)
-  default     = {}
+  default = {
+    requests = {
+      cpu    = "100m"
+      memory = "128Mi"
+    }
+    limits = {
+      cpu    = "100m"
+      memory = "128Mi"
+    }
+  }
 }
 
 variable "controller_node_selector" {
@@ -260,7 +275,7 @@ variable "controller_tolerations" {
 
 variable "controller_affinity" {
   description = "Set the controller pod affinity rules."
-  type        = map(any)
+  type        = any
   default     = {}
 }
 
@@ -295,6 +310,12 @@ variable "scope_watch_namespace" {
   description = "Tells the controller and the GitHub webhook server which namespace to watch if scope.singleNamespace is true."
   type        = string
   default     = ""
+}
+
+variable "cert_manager_enabled" {
+  description = "Whether to enable the cert manager."
+  type        = bool
+  default     = true
 }
 
 variable "controller_service_type" {
@@ -354,7 +375,7 @@ variable "metrics_proxy_image_repository" {
 variable "metrics_proxy_image_tag" {
   description = "The tag of the kube-proxy container."
   type        = string
-  default     = "v0.10.0"
+  default     = "v0.13.0"
 }
 
 ##############################
@@ -382,6 +403,12 @@ variable "webhook_server_log_level" {
   description = "Set the log level of the githubWebhookServer container."
   type        = string
   default     = ""
+}
+
+variable "webhook_server_secret_enabled" {
+  description = "Whether to enable the webhook hook secret."
+  type        = bool
+  default     = false
 }
 
 variable "webhook_server_secret_created" {
@@ -453,7 +480,16 @@ variable "webhook_server_security_context" {
 variable "webhook_server_resources" {
   description = "Set the githubWebhookServer pod resources."
   type        = map(any)
-  default     = {}
+  default = {
+    requests = {
+      cpu    = "100m"
+      memory = "128Mi"
+    }
+    limits = {
+      cpu    = "100m"
+      memory = "128Mi"
+    }
+  }
 }
 
 variable "webhook_server_node_selector" {
@@ -462,7 +498,7 @@ variable "webhook_server_node_selector" {
   default     = {}
 }
 
-variable "webhook_server_toleration" {
+variable "webhook_server_tolerations" {
   description = "Set the githubWebhookServer pod tolerations."
   type        = list(any)
   default     = []
@@ -470,7 +506,7 @@ variable "webhook_server_toleration" {
 
 variable "webhook_server_affinity" {
   description = "Set environment variables for the githubWebhookServer container."
-  type        = map(any)
+  type        = any
   default     = {}
 }
 
@@ -541,4 +577,35 @@ variable "webhook_server_pod_disruption_budget" {
     enabled      = true
     minAvailable = 1
   }
+}
+
+variable "github_org_runners" {
+  description = "Github organization for deploying org runner"
+  type = list(object({
+    name        = string           # Organization Name
+    group       = optional(string) # Runner group needs to be created first
+    replicas    = number
+    label       = string
+    tolerations = optional(list(any))
+    affinity    = optional(any)
+    resources   = optional(map(any))
+  }))
+  default = []
+}
+
+variable "role_name" {
+  description = "Name of the iam role to be created."
+  type        = string
+  default     = ""
+}
+
+variable "role_policy_arns" {
+  description = "ARNs of any policies to attach to the IAM role"
+  type        = map(string)
+  default     = {}
+}
+
+variable "oidc_provider_arn" {
+  description = "OIDC Provider ARN for IRSA"
+  type        = string
 }
