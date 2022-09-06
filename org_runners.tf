@@ -60,8 +60,31 @@ resource "helm_release" "github_org_runners" {
             fsGroup: 1000
           labels: "${each.value.label}"
           resources: "${each.value.resources}"
-          tolerations: "${each.value.tolerations}"
-          affinity: "${each.value.affinity}"
+          tolerations:
+          - key: "dedicated"
+            operator: "Equal"
+            value: "cicd"
+            effect: "NoSchedule"
+          affinity:
+            podAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+              - nodeSelectorTerms:
+                  matchExpressions:
+                  - key: dedicated
+                    operator: In
+                    values:
+                    - cicd
+            podAntiAffinity:
+              preferredDuringSchedulingIgnoredDuringExecution:
+              - weight: 100
+                podAffinityTerm:
+                  labelSelector:
+                    matchExpressions:
+                    - key: dedicated
+                      operator: In
+                      values:
+                      - cicd
+                  topologyKey: topology.kubernetes.io/zone
     EOF
   ]
 }
