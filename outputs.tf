@@ -5,5 +5,5 @@ output "helm_release" {
 
 output "org_runners" {
   description = "Output of Github Org Runners"
-  value       = helm_release.github_org_runners
+  value       = kubernetes_manifest.github_org_runners
 }
