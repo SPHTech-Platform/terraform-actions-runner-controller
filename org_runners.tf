@@ -59,7 +59,13 @@ resource "helm_release" "github_org_runners" {
           securityContext:
             fsGroup: 1000
           labels: "${each.value.label}"
-          resources: "${each.value.resources}"
+          resources:
+            requests:
+              cpu: "500m"
+              memory: "2Gi"
+            limits:
+              cpu: "500m"
+              memory: "4Gi"
           tolerations:
           - key: "dedicated"
             operator: "Equal"
