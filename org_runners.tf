@@ -36,7 +36,7 @@ resource "helm_release" "github_org_runners" {
   for_each   = { for org in var.github_org_runners : org.name => org }
   depends_on = [helm_release.release]
 
-  name       = "external-secrets-cluster-store"
+  name       = "github-org-runners"
   repository = "https://charts.itscontained.io"
   chart      = "raw"
   version    = "0.2.5"
