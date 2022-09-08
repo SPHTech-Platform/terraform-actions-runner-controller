@@ -1,6 +1,5 @@
 resource "kubernetes_manifest" "github_org_runners" {
-  for_each   = { for org in var.github_org_runners : org.name => org }
-  depends_on = [helm_release.release]
+  for_each = { for org in var.github_org_runners : org.name => org }
 
   manifest = {
     apiVersion = "actions.summerwind.dev/v1alpha1"
@@ -8,7 +7,7 @@ resource "kubernetes_manifest" "github_org_runners" {
 
     metadata = {
       name      = "${lower(each.value.name)}-runner-deployment"
-      namespace = var.chart_namespace
+      namespace = helm_release.release.namespace
     }
 
     spec = {
