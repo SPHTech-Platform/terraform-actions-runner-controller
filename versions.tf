@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 1.0"
+  required_version = ">= 1.3"
   required_providers {
     helm = {
       source  = "hashicorp/helm"
@@ -10,5 +10,4 @@ terraform {
       version = ">= 2.12"
     }
   }
-  experiments = [module_variable_optional_attrs]
 }
