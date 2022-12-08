@@ -582,13 +582,15 @@ variable "webhook_server_pod_disruption_budget" {
 variable "github_org_runners" {
   description = "Github organization for deploying org runner"
   type = list(object({
-    name        = string           # Organization Name
-    group       = optional(string) # Runner group needs to be created first
-    replicas    = number
-    label       = string
-    tolerations = optional(list(any))
-    affinity    = optional(any)
-    resources   = optional(map(any))
+    name                      = string           # Organization Name
+    group                     = optional(string) # Runner group needs to be created first
+    min_replicas              = number
+    max_replicas              = number
+    scale_up_trigger_duration = string
+    label                     = string
+    tolerations               = optional(list(any))
+    affinity                  = optional(any)
+    resources                 = optional(map(any))
   }))
   default = []
 }
