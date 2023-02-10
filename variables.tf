@@ -612,9 +612,3 @@ variable "oidc_provider_arn" {
   type        = string
   default     = ""
 }
-
-variable "irsa_enabled" {
-  description = "Flag for enabling IRSA"
-  type        = bool
-  default     = false
-}

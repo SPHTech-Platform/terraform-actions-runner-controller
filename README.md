@@ -85,7 +85,6 @@ Deploys [actions-runner-controller](https://github.com/actions-runner-controller
 | <a name="input_metrics_service_monitor_labels"></a> [metrics\_service\_monitor\_labels](#input\_metrics\_service\_monitor\_labels) | Set labels to apply to ServiceMonitor resources. | `map(string)` | `{}` | no |
 | <a name="input_metrics_service_port"></a> [metrics\_service\_port](#input\_metrics\_service\_port) | Set port of metrics service. | `string` | `"8443"` | no |
 | <a name="input_oidc_provider_arn"></a> [oidc\_provider\_arn](#input\_oidc\_provider\_arn) | OIDC Provider ARN for IRSA | `string` | `""` | no |
-| <a name="input_irsa_enabled"></a> [irsa\_enabled](#input\_irsa\_enabled) | IRSA Enabling flag | `bool` | `false` | no |
 | <a name="input_release_name"></a> [release\_name](#input\_release\_name) | Helm release name. | `string` | `"actions-runner-controller"` | no |
 | <a name="input_replicas"></a> [replicas](#input\_replicas) | Set the number of controller pods. | `number` | `1` | no |
 | <a name="input_role_name"></a> [role\_name](#input\_role\_name) | Name of the iam role to be created. | `string` | `""` | no |
