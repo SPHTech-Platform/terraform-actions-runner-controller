@@ -2,6 +2,14 @@
 
 Deploys [actions-runner-controller](https://github.com/actions-runner-controller/actions-runner-controller).
 
+## Additonal Note:
+
+This runs version 1 of ARC, the following files are only applied when `github_ent_runners` or `github_org_runners` are not empty
+- `org_runners.tf`
+- `ent_runners.tf`
+
+They are required for creating the necessary CRDs for deploying the runners.
+
 ## Requirements
 
 | Name | Version |
