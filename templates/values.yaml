@@ -254,6 +254,7 @@ githubWebhookServer:
       #         port:
       #           name: use-annotation
     tls: ${webhook_server_ingress_tls}
+#checkov:skip=CKV_SECRET_6: false positive
     #  - secretName: chart-example-tls
     #    hosts:
     #      - chart-example.local

@@ -610,4 +610,5 @@ variable "role_policy_arns" {
 variable "oidc_provider_arn" {
   description = "OIDC Provider ARN for IRSA"
   type        = string
+  default     = ""
 }
