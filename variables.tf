@@ -19,7 +19,7 @@ variable "chart_repository" {
 variable "chart_version" {
   description = "Version of Chart to install. Set to empty to install the latest version."
   type        = string
-  default     = "0.21.1"
+  default     = "0.22.0"
 }
 
 variable "chart_namespace" {
