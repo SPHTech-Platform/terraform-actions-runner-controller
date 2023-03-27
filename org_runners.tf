@@ -28,6 +28,10 @@ resource "kubernetes_manifest" "github_org_runners" {
       }
     }
   }
+
+  depends_on = [
+    helm_release.release
+  ]
 }
 
 resource "kubernetes_manifest" "github_org_runners_horizontal_autoscaler" {
@@ -59,4 +63,8 @@ resource "kubernetes_manifest" "github_org_runners_horizontal_autoscaler" {
       ]
     }
   }
+
+  depends_on = [
+    helm_release.release
+  ]
 }
