@@ -1,5 +1,5 @@
 resource "kubernetes_manifest" "github_ent_runners" {
-  for_each = { for ent in var.github_ent_runners : ent.name => ent }
+  for_each = { for ent in var.github_ent_runners : ent.label => ent }
 
   manifest = {
     apiVersion = "actions.summerwind.dev/v1alpha1"
@@ -35,7 +35,7 @@ resource "kubernetes_manifest" "github_ent_runners" {
 }
 
 resource "kubernetes_manifest" "github_ent_runners_horizontal_autoscaler" {
-  for_each = { for ent in var.github_ent_runners : ent.name => ent }
+  for_each = { for ent in var.github_ent_runners : ent.label => ent }
 
   manifest = {
     apiVersion = "actions.summerwind.dev/v1alpha1"
