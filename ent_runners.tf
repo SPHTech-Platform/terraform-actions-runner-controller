@@ -6,7 +6,7 @@ resource "kubernetes_manifest" "github_ent_runners" {
     kind       = "RunnerDeployment"
 
     metadata = {
-      name      = "${lower(each.value.name)}-runner-deployment"
+      name      = "${lower(each.value.label)}-runner-deployment"
       namespace = helm_release.release.namespace
     }
 
@@ -42,7 +42,7 @@ resource "kubernetes_manifest" "github_ent_runners_horizontal_autoscaler" {
     kind       = "HorizontalRunnerAutoscaler"
 
     metadata = {
-      name      = "${lower(each.value.name)}-runner-deployment"
+      name      = "${lower(each.value.label)}-runner-deployment"
       namespace = helm_release.release.namespace
     }
 
@@ -51,7 +51,7 @@ resource "kubernetes_manifest" "github_ent_runners_horizontal_autoscaler" {
       maxReplicas = each.value.max_replicas
       scaleTargetRef = {
         kind = "RunnerDeployment"
-        name = "${lower(each.value.name)}-runner-deployment"
+        name = "${lower(each.value.label)}-runner-deployment"
       }
       scaleUpTriggers = [
         {
