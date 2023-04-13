@@ -19,7 +19,7 @@ variable "chart_repository" {
 variable "chart_version" {
   description = "Version of Chart to install. Set to empty to install the latest version."
   type        = string
-  default     = "0.23.0"
+  default     = "0.23.1"
 }
 
 variable "chart_namespace" {
@@ -159,7 +159,7 @@ variable "controller_repository" {
 variable "controller_image_tag" {
   description = "The tag of the controller container. If not specified, it's the appVersion inside Chart.yaml"
   type        = string
-  default     = "v0.27.1"
+  default     = "v0.27.2"
 }
 
 variable "runner_repository" {
