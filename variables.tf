@@ -171,7 +171,7 @@ variable "runner_repository" {
 variable "runner_image_tag" {
   description = "The tag of the actions runner container."
   type        = string
-  default     = "latest"
+  default     = "ubuntu-22.04"
 }
 
 variable "runner_image_pull_secrets" {
