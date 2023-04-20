@@ -24,6 +24,28 @@ resource "kubernetes_manifest" "github_ent_runners" {
           resources   = each.value.resources
           tolerations = each.value.tolerations
           affinity    = each.value.affinity
+          volumeMounts = [
+            {
+              mountPath = "/home/runner/.docker/"
+              name      = "docker-secret"
+              readOnly  = true
+            }
+          ]
+          volumes = [
+            {
+              name = "docker-secret"
+              secret = {
+                secretName = "regcred"
+                items = [
+                  {
+                    key  = ".dockerconfigjson"
+                    path = "config.json"
+                  }
+                ]
+              }
+            }
+          ]
+
         }
       }
     }
