@@ -26,7 +26,8 @@ resource "kubernetes_manifest" "github_ent_runners" {
           affinity    = each.value.affinity
           volumeMounts = [
             {
-              mountPath = "/home/runner/.docker/"
+              mountPath = "/home/runner/.docker/config.json"
+              subPath   = "config.json"
               name      = "docker-secret"
             }
           ]
