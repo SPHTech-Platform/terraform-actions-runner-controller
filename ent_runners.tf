@@ -28,7 +28,6 @@ resource "kubernetes_manifest" "github_ent_runners" {
             {
               mountPath = "/home/runner/.docker/"
               name      = "docker-secret"
-              readOnly  = true
             }
           ]
           volumes = [
