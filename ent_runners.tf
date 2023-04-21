@@ -18,7 +18,7 @@ resource "kubernetes_manifest" "github_ent_runners" {
           group              = each.value.group
           imagePullPolicy    = "IfNotPresent"
           securityContext = {
-            fsGroup = 1001
+            fsGroup = 1000
           }
           labels      = [each.value.label]
           resources   = each.value.resources
@@ -29,7 +29,11 @@ resource "kubernetes_manifest" "github_ent_runners" {
               mountPath = "/home/runner/.docker/config.json"
               subPath   = "config.json"
               name      = "docker-secret"
-            }
+            },
+            {
+              mountPath = "/home/runner/.docker"
+              name      = "docker-config-volume"
+            },
           ]
           volumes = [
             {
@@ -43,6 +47,10 @@ resource "kubernetes_manifest" "github_ent_runners" {
                   }
                 ]
               }
+            },
+            {
+              name     = "docker-config-volume"
+              emptyDir = {}
             }
           ]
 
