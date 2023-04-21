@@ -18,7 +18,7 @@ resource "kubernetes_manifest" "github_ent_runners" {
           group              = each.value.group
           imagePullPolicy    = "IfNotPresent"
           securityContext = {
-            fsGroup = 1000
+            fsGroup = 1001
           }
           labels      = [each.value.label]
           resources   = each.value.resources
