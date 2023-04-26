@@ -19,13 +19,10 @@ resource "kubernetes_manifest" "github_ent_runners_dind" {
           serviceAccountName           = var.service_account_name
           group                        = each.value.group
           imagePullPolicy              = "IfNotPresent"
-          securityContext = {
-            fsGroup = 1000
-          }
-          labels      = [each.value.label]
-          resources   = each.value.resources
-          tolerations = each.value.tolerations
-          affinity    = each.value.affinity
+          labels                       = [each.value.label]
+          resources                    = each.value.resources
+          tolerations                  = each.value.tolerations
+          affinity                     = each.value.affinity
           volumeMounts = [
             {
               mountPath = "/home/runner/.docker/config.json"
