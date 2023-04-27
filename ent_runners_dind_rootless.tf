@@ -64,7 +64,7 @@ resource "kubernetes_manifest" "github_ent_runners_dind_rootless" {
 }
 
 resource "kubernetes_manifest" "github_ent_runners_horizontal_autoscaler_dind_rootless" {
-  for_each = { for ent in var.github_ent_runners_dind : ent.label => ent }
+  for_each = { for ent in var.github_ent_runners_dind_rootless : ent.label => ent }
 
   manifest = {
     apiVersion = "actions.summerwind.dev/v1alpha1"
