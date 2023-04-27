@@ -17,7 +17,7 @@ resource "kubernetes_manifest" "github_ent_runners_dind" {
           # dockerdWithinRunnerContainer = true
           # this removes the privilege flag
           dockerdWithinRunnerContainer = true
-          image                        = "summerwind/actions-runner-dind-rootless"
+          image                        = "summerwind/actions-runner-dind"
           serviceAccountName           = var.service_account_name
           group                        = each.value.group
           imagePullPolicy              = "IfNotPresent"
