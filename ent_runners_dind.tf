@@ -13,7 +13,9 @@ resource "kubernetes_manifest" "github_ent_runners_dind" {
     spec = {
       template = {
         spec = {
-          enterprise                   = each.value.name
+          enterprise = each.value.name
+          # dockerdWithinRunnerContainer = true
+          # this removes the privilege flag
           dockerdWithinRunnerContainer = true
           image                        = "summerwind/actions-runner-dind-rootless"
           serviceAccountName           = var.service_account_name
@@ -24,33 +26,33 @@ resource "kubernetes_manifest" "github_ent_runners_dind" {
           tolerations                  = each.value.tolerations
           affinity                     = each.value.affinity
           volumeMounts = [
-            {
-              mountPath = "/home/runner/.docker/config.json"
-              subPath   = "config.json"
-              name      = "docker-secret"
-            },
+            # {
+            #   mountPath = "/home/runner/.docker/config.json"
+            #   subPath   = "config.json"
+            #   name      = "docker-secret"
+            # },
             {
               mountPath = "/home/runner/.docker"
               name      = "docker-config-volume"
             },
           ]
           volumes = [
-            {
-              name = "docker-secret"
-              secret = {
-                secretName = "regcred"
-                items = [
-                  {
-                    key  = ".dockerconfigjson"
-                    path = "config.json"
-                  }
-                ]
-              }
-            },
+            # {
+            #   name = "docker-secret"
+            #   secret = {
+            #     secretName = "regcred"
+            #     items = [
+            #       {
+            #         key  = ".dockerconfigjson"
+            #         path = "config.json"
+            #       }
+            #     ]
+            #   }
+            # },
             {
               name     = "docker-config-volume"
               emptyDir = {}
-            }
+            },
           ]
 
         }
