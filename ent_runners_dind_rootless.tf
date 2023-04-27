@@ -25,11 +25,6 @@ resource "kubernetes_manifest" "github_ent_runners_dind_rootless" {
           affinity                     = each.value.affinity
           volumeMounts = [
             {
-              mountPath = "/home/runner/dockerconfig.json"
-              subPath   = "config.json"
-              name      = "docker-secret"
-            },
-            {
               mountPath = "/home/runner/.docker"
               name      = "docker-config-volume"
             },

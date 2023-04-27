@@ -31,29 +31,29 @@ resource "kubernetes_manifest" "github_ent_runners_dind" {
           tolerations                  = each.value.tolerations
           affinity                     = each.value.affinity
           volumeMounts = [
-            # {
-            #   mountPath = "/home/runner/.docker/config.json"
-            #   subPath   = "config.json"
-            #   name      = "docker-secret"
-            # },
+            {
+              mountPath = "/home/runner/dockerconfig.json"
+              subPath   = "config.json"
+              name      = "docker-secret"
+            },
             {
               mountPath = "/home/runner/.docker"
               name      = "docker-config-volume"
             },
           ]
           volumes = [
-            # {
-            #   name = "docker-secret"
-            #   secret = {
-            #     secretName = "regcred"
-            #     items = [
-            #       {
-            #         key  = ".dockerconfigjson"
-            #         path = "config.json"
-            #       }
-            #     ]
-            #   }
-            # },
+            {
+              name = "docker-secret"
+              secret = {
+                secretName = "regcred"
+                items = [
+                  {
+                    key  = ".dockerconfigjson"
+                    path = "config.json"
+                  }
+                ]
+              }
+            },
             {
               name     = "docker-config-volume"
               emptyDir = {}
