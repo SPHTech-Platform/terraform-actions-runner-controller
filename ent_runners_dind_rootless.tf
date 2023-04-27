@@ -1,5 +1,5 @@
-resource "kubernetes_manifest" "github_ent_runners_dind" {
-  for_each = { for ent in var.github_ent_runners_dind : ent.label => ent }
+resource "kubernetes_manifest" "github_ent_runners_dind_rootless" {
+  for_each = { for ent in var.github_ent_runners_dind_rootless : ent.label => ent }
 
   manifest = {
     apiVersion = "actions.summerwind.dev/v1alpha1"
@@ -13,16 +13,9 @@ resource "kubernetes_manifest" "github_ent_runners_dind" {
     spec = {
       template = {
         spec = {
-          enterprise = each.value.name
-          initContainers = [
-            {
-              command = ["sh", "-c", "cat /home/runner/dockerconfig.json > /home/runner/.docker/config.json"]
-              image   = "alpine"
-              name    = "dockerconfigwriter"
-            }
-          ]
+          enterprise                   = each.value.name
           dockerdWithinRunnerContainer = true
-          image                        = "summerwind/actions-runner-dind"
+          image                        = "summerwind/actions-runner-dind-rootless"
           serviceAccountName           = var.service_account_name
           group                        = each.value.group
           imagePullPolicy              = "IfNotPresent"
@@ -31,29 +24,29 @@ resource "kubernetes_manifest" "github_ent_runners_dind" {
           tolerations                  = each.value.tolerations
           affinity                     = each.value.affinity
           volumeMounts = [
-            # {
-            #   mountPath = "/home/runner/.docker/config.json"
-            #   subPath   = "config.json"
-            #   name      = "docker-secret"
-            # },
+            {
+              mountPath = "/home/runner/dockerconfig.json"
+              subPath   = "config.json"
+              name      = "docker-secret"
+            },
             {
               mountPath = "/home/runner/.docker"
               name      = "docker-config-volume"
             },
           ]
           volumes = [
-            # {
-            #   name = "docker-secret"
-            #   secret = {
-            #     secretName = "regcred"
-            #     items = [
-            #       {
-            #         key  = ".dockerconfigjson"
-            #         path = "config.json"
-            #       }
-            #     ]
-            #   }
-            # },
+            {
+              name = "docker-secret"
+              secret = {
+                secretName = "regcred"
+                items = [
+                  {
+                    key  = ".dockerconfigjson"
+                    path = "config.json"
+                  }
+                ]
+              }
+            },
             {
               name     = "docker-config-volume"
               emptyDir = {}
@@ -70,7 +63,7 @@ resource "kubernetes_manifest" "github_ent_runners_dind" {
   ]
 }
 
-resource "kubernetes_manifest" "github_ent_runners_horizontal_autoscaler_dind" {
+resource "kubernetes_manifest" "github_ent_runners_horizontal_autoscaler_dind_rootless" {
   for_each = { for ent in var.github_ent_runners_dind : ent.label => ent }
 
   manifest = {

@@ -627,6 +627,22 @@ variable "github_ent_runners_dind" {
   default = []
 }
 
+variable "github_ent_runners_dind_rootless" {
+  description = "Github enterprise for deploying enterprise dind runner"
+  type = list(object({
+    name                      = string           # Enterprise Name
+    group                     = optional(string) # Runner group needs to be created first
+    min_replicas              = number
+    max_replicas              = number
+    scale_up_trigger_duration = string
+    label                     = string
+    tolerations               = optional(list(any))
+    affinity                  = optional(any)
+    resources                 = optional(map(any))
+  }))
+  default = []
+}
+
 variable "role_name" {
   description = "Name of the iam role to be created."
   type        = string
