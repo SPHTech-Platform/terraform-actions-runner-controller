@@ -14,13 +14,13 @@ resource "kubernetes_manifest" "github_ent_runners_dind" {
       template = {
         spec = {
           enterprise = each.value.name
-          initContainers = [
-            {
-              command = ["sh", "-c", "cat /home/runner/dockerconfig.json > /home/runner/.docker/config.json"]
-              image   = "alpine"
-              name    = "dockerconfigwriter"
-            }
-          ]
+          # initContainers = [
+          #   {
+          #     command = ["sh", "-c", "cat /home/runner/dockerconfig.json > /home/runner/.docker/config.json"]
+          #     image   = "alpine"
+          #     name    = "dockerconfigwriter"
+          #   }
+          # ]
           dockerdWithinRunnerContainer = true
           image                        = "summerwind/actions-runner-dind"
           serviceAccountName           = var.service_account_name
