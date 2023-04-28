@@ -14,13 +14,13 @@ resource "kubernetes_manifest" "github_ent_runners_dind" {
       template = {
         spec = {
           enterprise = each.value.name
-          # initContainers = [
-          #   {
-          #     command = ["sh", "-c", "cat /home/runner/dockerconfig.json > /home/runner/.docker/config.json"]
-          #     image   = "alpine"
-          #     name    = "dockerconfigwriter"
-          #   }
-          # ]
+          initContainers = [
+            {
+              command = ["sh", "-c", "cat /home/runner/config.json > /home/runner/.docker/config.json && sleep 20"]
+              image   = "alpine"
+              name    = "dockerconfigwriter"
+            }
+          ]
           dockerdWithinRunnerContainer = true
           image                        = "summerwind/actions-runner-dind"
           serviceAccountName           = var.service_account_name
@@ -32,7 +32,7 @@ resource "kubernetes_manifest" "github_ent_runners_dind" {
           affinity                     = each.value.affinity
           volumeMounts = [
             {
-              mountPath = "/home/runner/dockerconfig.json"
+              mountPath = "/home/runner/config.json"
               subPath   = "config.json"
               name      = "docker-secret"
             },
