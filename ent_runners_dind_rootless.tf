@@ -13,7 +13,28 @@ resource "kubernetes_manifest" "github_ent_runners_dind_rootless" {
     spec = {
       template = {
         spec = {
-          enterprise                   = each.value.name
+          enterprise = each.value.name
+          initContainers = [
+            {
+              command = ["sh", "-c", "cat /home/runner/config.json > /home/runner/.docker/config.json"]
+              image   = "alpine"
+              securityContext = {
+                fsGroup = 1000
+              }
+              name = "dockerconfigwriter"
+              volumeMounts = [
+                {
+                  mountPath = "/home/runner/config.json"
+                  subPath   = "config.json"
+                  name      = "docker-secret"
+                },
+                {
+                  mountPath = "/home/runner/.docker"
+                  name      = "docker-config-volume"
+                },
+              ]
+            }
+          ]
           dockerdWithinRunnerContainer = true
           image                        = "summerwind/actions-runner-dind-rootless"
           serviceAccountName           = var.service_account_name
@@ -24,6 +45,11 @@ resource "kubernetes_manifest" "github_ent_runners_dind_rootless" {
           tolerations                  = each.value.tolerations
           affinity                     = each.value.affinity
           volumeMounts = [
+            {
+              mountPath = "/home/runner/config.json"
+              subPath   = "config.json"
+              name      = "docker-secret"
+            },
             {
               mountPath = "/home/runner/.docker"
               name      = "docker-config-volume"
