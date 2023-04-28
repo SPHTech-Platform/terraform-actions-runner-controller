@@ -16,7 +16,8 @@ resource "kubernetes_manifest" "github_ent_runners_dind" {
           enterprise = each.value.name
           initContainers = [
             {
-              command = ["sh", "-c", "cat /home/runner/config.json > /home/runner/.docker/config.json && sleep 20"]
+              # command = ["sh", "-c", "cat /home/runner/config.json > /home/runner/.docker/config.json && sleep 20"]
+              command = ["sh", "-c", "sleep 30 && cat /home/runner/config.json"]
               image   = "alpine"
               name    = "dockerconfigwriter"
             }
