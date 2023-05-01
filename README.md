@@ -8,6 +8,7 @@ This runs version 1 of ARC, the following files are only applied the following o
 - `org_runners.tf` for `github_org_runners`
 - `ent_runners.tf` for `github_ent_runners`
 - `ent_runners_dind.tf` for `github_ent_runners_dind`
+- `ent_runners_dind_rootless.tf` for `github_ent_runners_dind_rootless`
 
 They are required for creating the necessary CRDs for deploying the runners.
 
