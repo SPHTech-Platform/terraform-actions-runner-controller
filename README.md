@@ -4,9 +4,10 @@ Deploys [actions-runner-controller](https://github.com/actions-runner-controller
 
 ## Additonal Note:
 
-This runs version 1 of ARC, the following files are only applied when `github_ent_runners` or `github_org_runners` are not empty
-- `org_runners.tf`
-- `ent_runners.tf`
+This runs version 1 of ARC, the following files are only applied the following objects are not empty within the module:
+- `org_runners.tf` for `github_org_runners`
+- `ent_runners.tf` for `github_ent_runners`
+- `ent_runners_dind.tf` for `github_ent_runners_dind`
 
 They are required for creating the necessary CRDs for deploying the runners.
 
