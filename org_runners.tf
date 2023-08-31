@@ -1,6 +1,10 @@
 resource "kubernetes_manifest" "github_org_runners" {
   for_each = { for org in var.github_org_runners : org.name => org }
 
+  computed_fields = [
+    "spec.effectiveTime"
+  ]
+
   manifest = {
     apiVersion = "actions.summerwind.dev/v1alpha1"
     kind       = "RunnerDeployment"
@@ -36,6 +40,10 @@ resource "kubernetes_manifest" "github_org_runners" {
 
 resource "kubernetes_manifest" "github_org_runners_horizontal_autoscaler" {
   for_each = { for org in var.github_org_runners : org.name => org }
+
+  computed_fields = [
+    "spec.scaleUpTriggers",
+  ]
 
   manifest = {
     apiVersion = "actions.summerwind.dev/v1alpha1"
