@@ -2,7 +2,7 @@ resource "kubernetes_manifest" "github_org_runners" {
   for_each = { for org in var.github_org_runners : org.name => org }
 
   computed_fields = [
-    "spec.scaleUpTriggers",
+    "spec.effectiveTime"
   ]
 
   manifest = {
