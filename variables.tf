@@ -88,19 +88,23 @@ variable "auth_method" {
 variable "github_app_id" {
   description = "GitHub App ID. This can't be set at the same time as github_token"
   type        = string
+  default     = ""
 }
 
 variable "github_app_installation_id" {
   description = "GitHub App Installation ID. This can't be set at the same time as github_token"
   type        = string
+  default     = ""
 }
 
 variable "github_app_private_key" {
   description = "The multiline string of your GitHub App's private key. This can't be set at the same time as github_token"
   type        = string
+  default     = ""
 }
 
 variable "github_token" {
   description = "Enterprise Runners' pat token of an enterprise admin user"
   type        = string
+  default     = ""
 }

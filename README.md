@@ -177,11 +177,11 @@ No resources.
 | <a name="input_action_runner_scale_set_controller_chart_version"></a> [action\_runner\_scale\_set\_controller\_chart\_version](#input\_action\_runner\_scale\_set\_controller\_chart\_version) | ARC Controller chart version | `string` | `"0.6.1"` | no |
 | <a name="input_auth_method"></a> [auth\_method](#input\_auth\_method) | values for auth method | `string` | `"github-app"` | no |
 | <a name="input_controller_helm_release_name"></a> [controller\_helm\_release\_name](#input\_controller\_helm\_release\_name) | Helm release name for the controller | `string` | `"gha-controller"` | no |
-| <a name="input_github_app_id"></a> [github\_app\_id](#input\_github\_app\_id) | GitHub App ID. This can't be set at the same time as github\_token | `string` | n/a | yes |
-| <a name="input_github_app_installation_id"></a> [github\_app\_installation\_id](#input\_github\_app\_installation\_id) | GitHub App Installation ID. This can't be set at the same time as github\_token | `string` | n/a | yes |
-| <a name="input_github_app_private_key"></a> [github\_app\_private\_key](#input\_github\_app\_private\_key) | The multiline string of your GitHub App's private key. This can't be set at the same time as github\_token | `string` | n/a | yes |
+| <a name="input_github_app_id"></a> [github\_app\_id](#input\_github\_app\_id) | GitHub App ID. This can't be set at the same time as github\_token | `string` | `""` | no |
+| <a name="input_github_app_installation_id"></a> [github\_app\_installation\_id](#input\_github\_app\_installation\_id) | GitHub App Installation ID. This can't be set at the same time as github\_token | `string` | `""` | no |
+| <a name="input_github_app_private_key"></a> [github\_app\_private\_key](#input\_github\_app\_private\_key) | The multiline string of your GitHub App's private key. This can't be set at the same time as github\_token | `string` | `""` | no |
 | <a name="input_github_config_url"></a> [github\_config\_url](#input\_github\_config\_url) | githubConfigUrl is the GitHub url for where you want to configure runners | `string` | n/a | yes |
-| <a name="input_github_token"></a> [github\_token](#input\_github\_token) | Enterprise Runners' pat token of an enterprise admin user | `string` | n/a | yes |
+| <a name="input_github_token"></a> [github\_token](#input\_github\_token) | Enterprise Runners' pat token of an enterprise admin user | `string` | `""` | no |
 | <a name="input_k8s_cluster_ca_certificate"></a> [k8s\_cluster\_ca\_certificate](#input\_k8s\_cluster\_ca\_certificate) | Kubernetes cluster CA certificate | `string` | n/a | yes |
 | <a name="input_k8s_host"></a> [k8s\_host](#input\_k8s\_host) | Kubernetes host | `string` | n/a | yes |
 | <a name="input_k8s_token"></a> [k8s\_token](#input\_k8s\_token) | Kubernetes token | `string` | n/a | yes |
