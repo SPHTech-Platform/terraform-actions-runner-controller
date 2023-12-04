@@ -72,7 +72,7 @@ variable "k8s_cluster_ca_certificate" {
 variable "github_config_url" {
   description = "githubConfigUrl is the GitHub url for where you want to configure runners"
   type        = string
-  # Please set to an GitHub Org URL or GitHub enterprise URL
+  # Please set to an GitHub Org URL or GitHub enterprise URL or repo url
 }
 
 variable "auth_method" {
