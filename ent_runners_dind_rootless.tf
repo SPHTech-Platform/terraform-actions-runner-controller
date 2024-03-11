@@ -114,6 +114,10 @@ resource "kubernetes_manifest" "github_ent_runners_horizontal_autoscaler_dind_ro
     }
   }
 
+  field_manager {
+    force_conflicts = true
+  }
+
   depends_on = [
     helm_release.release
   ]
