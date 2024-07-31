@@ -1,0 +1,90 @@
+# Default values for gha-runner-scale-set-controller.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+labels: ${labels}
+
+# leaderElection will be enabled when replicaCount>1,
+# So, only one replica will in charge of reconciliation at a given time
+# leaderElectionId will be set to {{ define gha-runner-scale-set-controller.fullname }}.
+replicaCount: ${replicas}
+
+image:
+  repository: ${controller_repository}
+  pullPolicy: ${image_pull_policy}
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ${controller_image_tag}
+
+imagePullSecrets: ${image_pull_secrets}
+nameOverride: ""
+fullnameOverride: ""
+
+env:
+## Define environment variables for the controller pod
+#  - name: "ENV_VAR_NAME_1"
+#    value: "ENV_VAR_VALUE_1"
+#  - name: "ENV_VAR_NAME_2"
+#    valueFrom:
+#      secretKeyRef:
+#        key: ENV_VAR_NAME_2
+#        name: secret-name
+#        optional: true
+
+serviceAccount:
+  # Specifies whether a service account should be created for running the controller pod
+  create: ${service_account_created}
+  # Annotations to add to the service account
+  annotations: ${service_account_annotations}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  # You can not use the default service account for this.
+  name: ${service_account_name}
+
+podAnnotations: ${controller_pod_annotations}
+
+podSecurityContext: ${controller_pod_security_context}
+# fsGroup: 2000
+
+securityContext: ${controller_security_context}
+# capabilities:
+#   drop:
+#   - ALL
+# readOnlyRootFilesystem: true
+# runAsNonRoot: true
+# runAsUser: 1000
+
+resources: ${controller_resources}
+## We usually recommend not to specify default resources and to leave this as a conscious
+## choice for the user. This also increases chances charts run on environments with little
+## resources, such as Minikube. If you do want to specify resources, uncomment the following
+## lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+# limits:
+#   cpu: 100m
+#   memory: 128Mi
+# requests:
+#   cpu: 100m
+#   memory: 128Mi
+
+nodeSelector: ${controller_node_selector}
+
+tolerations: ${controller_tolerations}
+
+affinity: ${controller_affinity}
+
+# Leverage a PriorityClass to ensure your pods survive resource shortages
+# ref: https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/
+# PriorityClass: system-cluster-critical
+priorityClassName: ${priority_class_name}
+
+metrics:
+  controllerManagerAddr: ${controller_manager_addr}
+  listenerAddr: ${listener_addr}
+  listenerEndpoint: "/metrics"
+
+flags:
+  # Log level can be set here with one of the following values: "debug", "info", "warn", "error".
+  # Defaults to "debug".
+  logLevel: ${log_level}
+
+  ## Restricts the controller to only watch resources in the desired namespace.
+  ## Defaults to watch all namespaces when unset.
+  # watchSingleNamespace: ""
