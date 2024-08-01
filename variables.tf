@@ -1,13 +1,13 @@
 variable "action_runner_scale_set_controller_chart_version" {
   description = "ARC Controller chart version"
   type        = string
-  default     = "0.6.1"
+  default     = "0.9.3"
 }
 
 variable "action_runner_scale_set_chart_version" {
   description = "ARC Scale set chart version"
   type        = string
-  default     = "0.6.1"
+  default     = "0.9.3"
 }
 
 variable "controller_helm_release_name" {

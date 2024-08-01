@@ -28,7 +28,7 @@ variable "chart_version" {
 variable "chart_namespace" {
   description = "Namespace to install the chart into."
   type        = string
-  default     = "arc-systems"
+  default     = "arc-runners"
 }
 
 variable "chart_namespace_create" {
@@ -121,6 +121,31 @@ variable "runner_scale_set_name" {
   description = "Runner scale set name"
   type        = string
   default     = "arc-runner-set"
+}
+
+variable "listener_podspec_map" {
+  description = "Listener podspec map"
+  type = object({
+    metadata = any
+    spec     = any
+  })
+  default = {
+    metadata = {
+      annotations = {
+        "prometheus.io/scrape" = "true"
+        "prometheus.io/path"   = "/metrics"
+        "prometheus.io/port"   = "8080"
+      }
+      labels = {}
+    }
+    spec = {
+      containers = [
+        {
+          name = "listener"
+        }
+      ]
+    }
+  }
 }
 
 # Default spec map for dind container mode
@@ -227,4 +252,13 @@ variable "custom_podspec_map" {
     }
   }
 
+}
+
+variable "controller_service_account" {
+  description = "Service account for the controller."
+  type        = map(any)
+  default = {
+    namespace = "arc-systems"
+    name      = "actions-runner-controller"
+  }
 }
