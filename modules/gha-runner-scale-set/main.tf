@@ -30,8 +30,10 @@ locals {
     github_app_private_key     = var.github_app_private_key
     github_token               = var.github_token
 
-    container_mode_type = var.container_mode_type
-    template_spec       = yamlencode(var.custom_podspec_map)
+    container_mode_type        = var.container_mode_type
+    listener_template_spec     = yamlencode(var.listener_podspec_map)
+    template_spec              = yamlencode(var.custom_podspec_map)
+    controller_service_account = yamlencode(var.controller_service_account)
   }
 
 }

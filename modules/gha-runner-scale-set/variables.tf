@@ -28,7 +28,7 @@ variable "chart_version" {
 variable "chart_namespace" {
   description = "Namespace to install the chart into."
   type        = string
-  default     = "arc-systems"
+  default     = "arc-runners"
 }
 
 variable "chart_namespace_create" {
@@ -123,6 +123,31 @@ variable "runner_scale_set_name" {
   default     = "arc-runner-set"
 }
 
+variable "listener_podspec_map" {
+  description = "Listener podspec map"
+  type = object({
+    metadata = any
+    spec     = any
+  })
+  default = {
+    metadata = {
+      annotations = {
+        "prometheus.io/scrape" = "true"
+        "prometheus.io/path"   = "/metrics"
+        "prometheus.io/port"   = "8080"
+      }
+      labels = {}
+    }
+    spec = {
+      containers = [
+        {
+          name = "listener"
+        }
+      ]
+    }
+  }
+}
+
 # Default spec map for dind container mode
 variable "custom_podspec_map" {
   description = "Custom podspec map"
@@ -166,7 +191,7 @@ variable "custom_podspec_map" {
           env = [
             {
               name  = "DOCKER_HOST",
-              value = "unix:///run/docker/docker.sock"
+              value = "unix:///var/run/docker.sock"
             }
           ],
           volumeMounts = [
@@ -176,7 +201,7 @@ variable "custom_podspec_map" {
             },
             {
               name      = "dind-sock",
-              mountPath = "/run/docker",
+              mountPath = "/var/run",
               readOnly  = true
             }
           ]
@@ -184,7 +209,7 @@ variable "custom_podspec_map" {
         {
           name  = "dind",
           image = "docker:dind",
-          args  = ["dockerd", "--host=unix:///run/docker/docker.sock", "--group=$(DOCKER_GROUP_GID)"],
+          args  = ["dockerd", "--host=unix:///var/run/docker.sock", "--group=$(DOCKER_GROUP_GID)"],
           env = [
             {
               name  = "DOCKER_GROUP_GID",
@@ -227,4 +252,13 @@ variable "custom_podspec_map" {
     }
   }
 
+}
+
+variable "controller_service_account" {
+  description = "Service account for the controller."
+  type        = map(any)
+  default = {
+    namespace = "arc-systems"
+    name      = "actions-runner-controller"
+  }
 }
