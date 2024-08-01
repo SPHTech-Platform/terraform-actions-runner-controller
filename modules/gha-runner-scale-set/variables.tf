@@ -191,7 +191,7 @@ variable "custom_podspec_map" {
           env = [
             {
               name  = "DOCKER_HOST",
-              value = "unix:///run/docker/docker.sock"
+              value = "unix:///var/run/docker.sock"
             }
           ],
           volumeMounts = [
@@ -201,7 +201,7 @@ variable "custom_podspec_map" {
             },
             {
               name      = "dind-sock",
-              mountPath = "/run/docker",
+              mountPath = "/var/run",
               readOnly  = true
             }
           ]
@@ -209,7 +209,7 @@ variable "custom_podspec_map" {
         {
           name  = "dind",
           image = "docker:dind",
-          args  = ["dockerd", "--host=unix:///run/docker/docker.sock", "--group=$(DOCKER_GROUP_GID)"],
+          args  = ["dockerd", "--host=unix:///var/run/docker.sock", "--group=$(DOCKER_GROUP_GID)"],
           env = [
             {
               name  = "DOCKER_GROUP_GID",
