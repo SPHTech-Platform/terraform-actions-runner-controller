@@ -12,7 +12,7 @@ repos:
           - "--config=mlc_config.json"
 
   - repo: https://github.com/antonbabenko/pre-commit-terraform
-    rev: v1.77.1
+    rev: v1.72.2
     hooks:
       - id: terraform_fmt
       - id: terraform_providers_lock
@@ -25,6 +25,7 @@ repos:
           - --args=--config=__GIT_WORKING_DIR__/.tflint.hcl
       - id: terraform_docs
         args:
+          - "--args=--lockfile=false"
           - --hook-config=--path-to-file=README.md
           - --hook-config=--add-to-existing-file=true
           - --hook-config=--recursive=true
@@ -39,15 +40,15 @@ repos:
       # Git style
       - id: check-added-large-files
       - id: check-merge-conflict
+      - id: check-merge-conflict
       - id: no-commit-to-branch
 
       # Common errors
       - id: end-of-file-fixer
       - id: trailing-whitespace
       - id: check-yaml
-        exclude: ".*/templates($|/.*)"
 
       # Security
       - id: detect-aws-credentials
-        args: ["--allow-missing-credentials"]
+        args: ['--allow-missing-credentials']
       - id: detect-private-key

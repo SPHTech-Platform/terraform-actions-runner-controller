@@ -173,8 +173,8 @@ No resources.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_action_runner_scale_set_chart_version"></a> [action\_runner\_scale\_set\_chart\_version](#input\_action\_runner\_scale\_set\_chart\_version) | ARC Scale set chart version | `string` | `"0.6.1"` | no |
-| <a name="input_action_runner_scale_set_controller_chart_version"></a> [action\_runner\_scale\_set\_controller\_chart\_version](#input\_action\_runner\_scale\_set\_controller\_chart\_version) | ARC Controller chart version | `string` | `"0.6.1"` | no |
+| <a name="input_action_runner_scale_set_chart_version"></a> [action\_runner\_scale\_set\_chart\_version](#input\_action\_runner\_scale\_set\_chart\_version) | ARC Scale set chart version | `string` | `"0.9.3"` | no |
+| <a name="input_action_runner_scale_set_controller_chart_version"></a> [action\_runner\_scale\_set\_controller\_chart\_version](#input\_action\_runner\_scale\_set\_controller\_chart\_version) | ARC Controller chart version | `string` | `"0.9.3"` | no |
 | <a name="input_auth_method"></a> [auth\_method](#input\_auth\_method) | values for auth method | `string` | `"github-app"` | no |
 | <a name="input_controller_helm_release_name"></a> [controller\_helm\_release\_name](#input\_controller\_helm\_release\_name) | Helm release name for the controller | `string` | `"gha-controller"` | no |
 | <a name="input_github_app_id"></a> [github\_app\_id](#input\_github\_app\_id) | GitHub App ID. This can't be set at the same time as github\_token | `string` | `""` | no |
