@@ -169,7 +169,7 @@ variable "custom_podspec_map" {
       initContainers = [
         {
           name    = "init-dind-externals",
-          image   = "ghcr.io/actions/actions-runner:latest",
+          image   = "206977323828.dkr.ecr.ap-southeast-1.amazonaws.com/ghcr/actions/actions-runner:latest",
           command = ["cp", "-r", "-v", "/home/runner/externals/.", "/home/runner/tmpDir/"],
           volumeMounts = [
             {
@@ -186,7 +186,7 @@ variable "custom_podspec_map" {
       containers = [
         {
           name    = "runner",
-          image   = "ghcr.io/actions/actions-runner:latest",
+          image   = "206977323828.dkr.ecr.ap-southeast-1.amazonaws.com/ghcr/actions/actions-runner:latest",
           command = ["/home/runner/run.sh"],
           env = [
             {
@@ -208,7 +208,7 @@ variable "custom_podspec_map" {
         },
         {
           name  = "dind",
-          image = "docker:dind",
+          image = "206977323828.dkr.ecr.ap-southeast-1.amazonaws.com/docker-hub/library/docker:dind",
           args  = ["dockerd", "--host=unix:///var/run/docker.sock", "--group=$(DOCKER_GROUP_GID)"],
           env = [
             {
